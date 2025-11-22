@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6F532B53-397B-4A72-ABFD-4B0A1B0F38CB}"
+	ProjectSection(SolutionItems) = preProject
+		src\.gitignore = src\.gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{B8AA73E2-679F-4A35-B7E0-CE48E3E0F834}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Core.Domain", "src\core\CycleBike.Core.Domain\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj", "{65995E98-88CB-48EF-8A8E-5448B4742A97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "adapters", "adapters", "{E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.SocketAdapter", "src\adapters\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj", "{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.WebApi", "src\adapters\CycleBike.Adapters.WebApi\CycleBike.Adapters.WebApi\CycleBike.Adapters.WebApi.csproj", "{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.NoSQLAdapter", "src\adapters\CycleBike.Adapters.NoSQLAdapter\CycleBike.Adapters.NoSQLAdapter\CycleBike.Adapters.NoSQLAdapter.csproj", "{C9C3401E-B55E-47FB-B33F-30C1EF651178}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Core.Common", "src\core\CycleBike.Core.Common\CycleBike.Core.Common\CycleBike.Core.Common.csproj", "{75815C38-373F-404F-A9F6-E7D04E290250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.SocketServerAdapter", "src\adapters\CycleBike.Adapters.SocketServerAdapter\CycleBike.Adapters.SocketServerAdapter\CycleBike.Adapters.SocketServerAdapter.csproj", "{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.NotificationWorker", "src\adapters\CycleBike.Adapters.NotificationWorker\CycleBike.Adapters.NotificationWorker.csproj", "{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.HttpClient", "src\adapters\CycleBike.Adapters.HttpClient\CycleBike.Adapters.HttpClient\CycleBike.Adapters.HttpClient.csproj", "{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65995E98-88CB-48EF-8A8E-5448B4742A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65995E98-88CB-48EF-8A8E-5448B4742A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65995E98-88CB-48EF-8A8E-5448B4742A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65995E98-88CB-48EF-8A8E-5448B4742A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C3401E-B55E-47FB-B33F-30C1EF651178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C3401E-B55E-47FB-B33F-30C1EF651178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C3401E-B55E-47FB-B33F-30C1EF651178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C3401E-B55E-47FB-B33F-30C1EF651178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75815C38-373F-404F-A9F6-E7D04E290250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75815C38-373F-404F-A9F6-E7D04E290250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75815C38-373F-404F-A9F6-E7D04E290250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75815C38-373F-404F-A9F6-E7D04E290250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8AA73E2-679F-4A35-B7E0-CE48E3E0F834} = {6F532B53-397B-4A72-ABFD-4B0A1B0F38CB}
+		{65995E98-88CB-48EF-8A8E-5448B4742A97} = {B8AA73E2-679F-4A35-B7E0-CE48E3E0F834}
+		{E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5} = {6F532B53-397B-4A72-ABFD-4B0A1B0F38CB}
+		{8F83E527-1FB0-4545-BB5B-5C12ED9C04A2} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{AC2D4D42-F64E-43F6-AB28-FD0047D81DED} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{C9C3401E-B55E-47FB-B33F-30C1EF651178} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{75815C38-373F-404F-A9F6-E7D04E290250} = {B8AA73E2-679F-4A35-B7E0-CE48E3E0F834}
+		{3F38F942-7BA4-4C78-95E5-7F85CF3A9BFF} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+	EndGlobalSection
+EndGlobal
