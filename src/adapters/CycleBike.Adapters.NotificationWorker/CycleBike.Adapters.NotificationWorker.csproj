@@ -12,8 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\core\CycleBike.Core.Common\CycleBike.Core.Common\CycleBike.Core.Common.csproj" />
-      <ProjectReference Include="..\..\core\CycleBike.Core.Domain\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj" />
-      <ProjectReference Include="..\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj" />
+      <ProjectReference Include="..\..\core\CycleBike.Core.Common\CycleBike.Core.Common.csproj" />
+      <ProjectReference Include="..\..\core\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj" />
+      <ProjectReference Include="..\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj" />
     </ItemGroup>
 </Project>

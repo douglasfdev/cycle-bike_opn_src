@@ -8,13 +8,13 @@ builder.Services.AddSocketAdapter(options =>
 {
     options = options with
     {
-        HubUrl = EnvironmentVariable.SignalROptions.HubUrl,
-        AutomaticReconnect = EnvironmentVariable.SignalROptions.AutomaticReconnect,
-        ReconnectDelays = EnvironmentVariable.SignalROptions.ReconnectDelays,
-        HandshakeTimeout = EnvironmentVariable.SignalROptions.HandshakeTimeout,
-        KeepAliveInterval = EnvironmentVariable.SignalROptions.KeepAliveInterval,
-        ServerTimeout = EnvironmentVariable.SignalROptions.ServerTimeout,
-        Headers = EnvironmentVariable.SignalROptions.Headers
+        HubUrl = EnvironmentVariable.SignalR().HubUrl,
+        AutomaticReconnect = EnvironmentVariable.SignalR().AutomaticReconnect,
+        ReconnectDelays = EnvironmentVariable.SignalR().ReconnectDelays,
+        HandshakeTimeout = EnvironmentVariable.SignalR().HandshakeTimeout,
+        KeepAliveInterval = EnvironmentVariable.SignalR().KeepAliveInterval,
+        ServerTimeout = EnvironmentVariable.SignalR().ServerTimeout,
+        Headers = EnvironmentVariable.SignalR().Headers
     };
 });
 

@@ -1,0 +1,36 @@
+﻿services:
+  cycle-bike:
+    build:
+      context: .
+      dockerfile: src/adapters/CycleBike.Adapters.WebApi/Dockerfile
+    image: cycle-bike:1.0.0
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5161:5161
+    networks:
+      - cycle-bike
+    depends_on:
+      - mongodb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+  
+  mongodb:
+    build: 
+      context: .
+      dockerfile: src/adapters/CycleBike.Adapters.NoSQLContext/Dockerfile
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    networks:
+      - cycle-bike
+
+networks:
+  cycle-bike:
+    driver: bridge
