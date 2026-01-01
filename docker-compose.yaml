@@ -21,7 +21,7 @@
   mongodb:
     build: 
       context: .
-      dockerfile: src/adapters/CycleBike.Adapters.NoSQLContext/Dockerfile
+      dockerfile: src/adapters/CycleBike.Adapters.NoSQL/Dockerfile
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: username

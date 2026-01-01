@@ -9,7 +9,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/adapters/CycleBike.Adapters.WebApi/CycleBike.Adapters.WebApi.csproj", "src/adapters/CycleBike.Adapters.WebApi/"]
 COPY ["src/adapters/CycleBike.Adapters.SocketServerAdapter/CycleBike.Adapters.SocketServerAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketServerAdapter/"]
-COPY ["src/adapters/CycleBike.Adapters.NoSQLContext/CycleBike.Adapters.NoSQLContext.csproj", "src/adapters/CycleBike.Adapters.NoSQLContext/"]
+COPY ["src/adapters/CycleBike.Adapters.NoSQL/CycleBike.Adapters.NoSQL.csproj", "src/adapters/CycleBike.Adapters.NoSQL/"]
 COPY ["src/core/CycleBike.Core.Common/CycleBike.Core.Common.csproj", "src/core/CycleBike.Core.Common/"]
 COPY ["src/adapters/CycleBike.Adapters.SocketAdapter/CycleBike.Adapters.SocketAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketAdapter/"]
 COPY ["src/adapters/CycleBike.Adapters.GenericHttpClient/CycleBike.Adapters.GenericHttpClient.csproj", "src/adapters/CycleBike.Adapters.GenericHttpClient/"]

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using CycleBike.Adapters.GenericHttpClient;
-using CycleBike.Adapters.NoSQLContext;
+using CycleBike.Adapters.NoSQL;
 using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Configuration;

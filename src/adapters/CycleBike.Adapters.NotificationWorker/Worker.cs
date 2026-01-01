@@ -1,5 +1,5 @@
 using CycleBike.Adapters.SocketAdapter.Abstractions;
-using CycleBike.Core.Domain.Entities;
+using CycleBike.Core.Domain.Modules.Entities;
 
 namespace CycleBike.Adapters.NotificationWorker;
 

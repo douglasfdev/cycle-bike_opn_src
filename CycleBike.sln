@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.SocketAd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.WebApi", "src\adapters\CycleBike.Adapters.WebApi\CycleBike.Adapters.WebApi.csproj", "{AC2D4D42-F64E-43F6-AB28-FD0047D81DED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.NoSQLContext", "src\adapters\CycleBike.Adapters.NoSQLContext\CycleBike.Adapters.NoSQLContext.csproj", "{C9C3401E-B55E-47FB-B33F-30C1EF651178}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.NoSQL", "src\adapters\CycleBike.Adapters.NoSQL\CycleBike.Adapters.NoSQL.csproj", "{C9C3401E-B55E-47FB-B33F-30C1EF651178}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Core.Common", "src\core\CycleBike.Core.Common\CycleBike.Core.Common.csproj", "{75815C38-373F-404F-A9F6-E7D04E290250}"
 EndProject
@@ -28,6 +28,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.Infrastructure", "src\adapters\CycleBike.Adapters.Infrastructure\CycleBike.Adapters.Infrastructure.csproj", "{06AD951B-993A-4004-9E7D-F5895315ED7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B754CB3A-D345-455B-BB04-F73ED62B60B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegratedTests", "IntegratedTests\IntegratedTests.csproj", "{E091E564-A379-492B-A57A-D5E521564DB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +79,18 @@ Global
 		{28E22090-EEE7-4570-BD4F-FE0BBB4E757F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E22090-EEE7-4570-BD4F-FE0BBB4E757F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E22090-EEE7-4570-BD4F-FE0BBB4E757F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06AD951B-993A-4004-9E7D-F5895315ED7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06AD951B-993A-4004-9E7D-F5895315ED7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06AD951B-993A-4004-9E7D-F5895315ED7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06AD951B-993A-4004-9E7D-F5895315ED7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E091E564-A379-492B-A57A-D5E521564DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E091E564-A379-492B-A57A-D5E521564DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E091E564-A379-492B-A57A-D5E521564DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E091E564-A379-492B-A57A-D5E521564DB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8AA73E2-679F-4A35-B7E0-CE48E3E0F834} = {6F532B53-397B-4A72-ABFD-4B0A1B0F38CB}
@@ -84,5 +104,8 @@ Global
 		{60A9D204-A6D0-4C05-BD1C-6EF2AD0AEB78} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
 		{BA5D6E9E-7363-477C-BB1A-A4B1FEFADCD5} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
 		{28E22090-EEE7-4570-BD4F-FE0BBB4E757F} = {B8AA73E2-679F-4A35-B7E0-CE48E3E0F834}
+		{06AD951B-993A-4004-9E7D-F5895315ED7D} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123} = {B754CB3A-D345-455B-BB04-F73ED62B60B2}
+		{E091E564-A379-492B-A57A-D5E521564DB3} = {B754CB3A-D345-455B-BB04-F73ED62B60B2}
 	EndGlobalSection
 EndGlobal

@@ -25,7 +25,7 @@
       <ProjectReference Include="..\..\core\CycleBike.Core.Common\CycleBike.Core.Common.csproj" />
       <ProjectReference Include="..\..\core\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj" />
       <ProjectReference Include="..\CycleBike.Adapters.GenericHttpClient\CycleBike.Adapters.GenericHttpClient.csproj" />
-      <ProjectReference Include="..\CycleBike.Adapters.NoSQLContext\CycleBike.Adapters.NoSQLContext.csproj" />
+      <ProjectReference Include="..\CycleBike.Adapters.NoSQL\CycleBike.Adapters.NoSQL.csproj" />
       <ProjectReference Include="..\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj" />
       <ProjectReference Include="..\CycleBike.Adapters.SocketServerAdapter\CycleBike.Adapters.SocketServerAdapter.csproj" />
     </ItemGroup>

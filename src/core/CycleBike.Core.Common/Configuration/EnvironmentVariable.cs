@@ -7,7 +7,7 @@ public static class EnvironmentVariable
     private static IConfiguration? _configuration;
 
     /// <summary>
-    /// Obtém uma seção de configuração completa e a mapeia para um objeto de tipo T.
+    /// Inicializa as variáveis de ambiente a partir da IConfiguration.
     /// </summary>
     /// <param name="configuration">A instância IConfiguration.</param>
     public static void InitializeEnvironments(this IConfiguration configuration)
