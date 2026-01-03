@@ -1,5 +1,6 @@
 using CycleBike.Adapters.NoSQL.Interfaces;
 using CycleBike.Adapters.NoSQL.Modules.MongoDB.Context;
+using CycleBike.Core.Domain.Interfaces;
 using MongoDB.Driver;
 
 namespace CycleBike.Adapters.NoSQL.Modules.Repositories;

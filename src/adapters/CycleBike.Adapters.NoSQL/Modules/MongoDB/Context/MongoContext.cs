@@ -1,4 +1,3 @@
-using CycleBike.Adapters.NoSQL.Interfaces;
 using CycleBike.Core.Common.Configuration;
 using MongoDB.Driver;
 

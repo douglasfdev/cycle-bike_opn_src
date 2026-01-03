@@ -6,6 +6,7 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 public class PaymentMethod : AggregateRoot
 {
     public Ulid Id { get; set; }
+    public Ulid ProfileId { get; set; }
     public string PaymentType { get; set; }
     public Ulid OrderId { get; set; }
     public Order Order { get; set; }

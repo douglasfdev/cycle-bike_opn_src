@@ -1,9 +1,11 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using CycleBike.Adapters.NoSQL.Interfaces;
 using CycleBike.Adapters.NoSQL.Modules.MongoDB.Context;
 using CycleBike.Adapters.NoSQL.Modules.Redis;
 using CycleBike.Adapters.NoSQL.Modules.Repositories;
 using CycleBike.Core.Common.Configuration;
+using CycleBike.Core.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -50,7 +52,7 @@ public static class NoSQLDependcyInjectionLayer
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = false,
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
 
             configureJsonOptions?.Invoke(jsonOptions);

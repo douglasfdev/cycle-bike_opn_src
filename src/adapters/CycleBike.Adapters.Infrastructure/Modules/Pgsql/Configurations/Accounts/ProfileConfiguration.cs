@@ -8,18 +8,21 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 {
     public void Configure(EntityTypeBuilder<Profile> builder)
     {
-        builder.ToTable(nameof(Profile));
+        builder.ToTable("Profiles");
 
         builder.HasKey(profile => profile.Id);
         builder.Property(profile => profile.Id)
             .IsRequired();
         
-        
         builder.HasOne(profile => profile.Customer)
             .WithOne()
             .HasForeignKey<Customer>(customer => customer.Id)
             .IsRequired();
-        
+
+        builder.HasOne(profile => profile.Address)
+            .WithOne()
+            .HasForeignKey<Address>(address => address.Id)
+            .IsRequired();
         
         builder.HasOne(profile => profile.Contact)
             .WithOne()
@@ -28,7 +31,7 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 
         builder.HasMany(profile => profile.PaymentMethods)
             .WithOne()
-            .HasForeignKey(payment => payment.Id)
+            .HasForeignKey(paymentMethod => paymentMethod.ProfileId)
             .IsRequired();
     }
 }

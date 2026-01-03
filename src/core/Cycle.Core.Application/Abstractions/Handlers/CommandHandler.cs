@@ -1,7 +1,7 @@
 using Cycle.Core.Application.Abstractions.Contracts;
 using Cycle.Core.Application.Ports.Handlers;
 
-namespace Cycle.Core.Application.Handlers;
+namespace Cycle.Core.Application.Abstractions.Handlers;
 
 public abstract class CommandHandler<TCommand> : ICommandHandler<TCommand> where TCommand : ICommand
 {

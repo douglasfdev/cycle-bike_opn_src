@@ -15,7 +15,7 @@ public class Product : AggregateRoot
     public Product() { }
 
     /// <summary>
-    /// Cria uma nova instância de Product.
+    /// Cria uma nova instância de Product com nome preço e descrição.
     /// </summary>
     /// <param name="name">O nome do produto.</param>
     /// <param name="price">O preço do produto.</param>
