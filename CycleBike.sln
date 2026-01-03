@@ -33,9 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B754CB3A-D345-455B-BB04-F73ED62B60B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "tests\UnitTest\UnitTest.csproj", "{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegratedTests", "IntegratedTests\IntegratedTests.csproj", "{E091E564-A379-492B-A57A-D5E521564DB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegratedTests", "tests\IntegratedTests\IntegratedTests.csproj", "{E091E564-A379-492B-A57A-D5E521564DB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
