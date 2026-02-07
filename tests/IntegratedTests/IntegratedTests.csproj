@@ -18,4 +18,17 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.GenericHttpClient\CycleBike.Adapters.GenericHttpClient.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.Infrastructure\CycleBike.Adapters.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.NoSQL\CycleBike.Adapters.NoSQL.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.NotificationWorker\CycleBike.Adapters.NotificationWorker.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.SocketServerAdapter\CycleBike.Adapters.SocketServerAdapter.csproj" />
+      <ProjectReference Include="..\..\src\adapters\CycleBike.Adapters.WebApi\CycleBike.Adapters.WebApi.csproj" />
+      <ProjectReference Include="..\..\src\core\Cycle.Core.Application\Cycle.Core.Application.csproj" />
+      <ProjectReference Include="..\..\src\core\CycleBike.Core.Common\CycleBike.Core.Common.csproj" />
+      <ProjectReference Include="..\..\src\core\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

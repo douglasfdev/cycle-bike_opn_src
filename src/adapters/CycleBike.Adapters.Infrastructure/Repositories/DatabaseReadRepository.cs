@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CycleBike.Adapters.Infrastructure.Repositories;
 
-public class DatabaseReadRepository<T>(DatabaseReadContext _context, DbSet<T> _dbSet): IDatabaseReadRepository<T> where T : class
+public class DatabaseReadRepository<T>(DbSet<T> _dbSet): IDatabaseReadRepository<T> where T : class
 {
     public async Task<IEnumerable<T>> GetAllAsync()
     {
