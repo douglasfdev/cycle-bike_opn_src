@@ -28,11 +28,12 @@ public class DatabaseGenericRepository<T>(
             query = query.Where(filter);
         }
 
-        var totalItems = await query.CountAsync();
         var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
+        var totalItems = await query.CountAsync();
 
         return new PagedResult<T>(items, totalItems, pageNumber, pageSize);;
     }
@@ -45,8 +46,8 @@ public class DatabaseGenericRepository<T>(
         IQueryable<T> query = _readSet.AsNoTracking();
         if (filter != null) query = query.Where(filter);
 
-        var totalItems = await query.CountAsync();
         var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+        var totalItems = await query.CountAsync();
 
         return new PagedResult<T>(items, totalItems, pageNumber, pageSize);
     }
