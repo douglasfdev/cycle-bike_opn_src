@@ -30,6 +30,25 @@
       - 27017:27017
     networks:
       - cycle-bike
+        
+  rabbitmq:
+    image: rabbitmq:3.9-management-alpine
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - cycle-bike
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    depends_on:
+      - mongodb
 
 networks:
   cycle-bike:

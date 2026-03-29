@@ -8,12 +8,14 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/adapters/CycleBike.Adapters.WebApi/CycleBike.Adapters.WebApi.csproj", "src/adapters/CycleBike.Adapters.WebApi/"]
-COPY ["src/adapters/CycleBike.Adapters.SocketServerAdapter/CycleBike.Adapters.SocketServerAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketServerAdapter/"]
-COPY ["src/adapters/CycleBike.Adapters.NoSQL/CycleBike.Adapters.NoSQL.csproj", "src/adapters/CycleBike.Adapters.NoSQL/"]
-COPY ["src/core/CycleBike.Core.Common/CycleBike.Core.Common.csproj", "src/core/CycleBike.Core.Common/"]
-COPY ["src/adapters/CycleBike.Adapters.SocketAdapter/CycleBike.Adapters.SocketAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketAdapter/"]
-COPY ["src/adapters/CycleBike.Adapters.GenericHttpClient/CycleBike.Adapters.GenericHttpClient.csproj", "src/adapters/CycleBike.Adapters.GenericHttpClient/"]
+COPY ["src/core/Cycle.Core.Application/Cycle.Core.Application.csproj", "src/core/Cycle.Core.Application/"]
 COPY ["src/core/CycleBike.Core.Domain/CycleBike.Core.Domain.csproj", "src/core/CycleBike.Core.Domain/"]
+COPY ["src/core/CycleBike.Core.Common/CycleBike.Core.Common.csproj", "src/core/CycleBike.Core.Common/"]
+COPY ["src/adapters/CycleBike.Adapters.NoSQL/CycleBike.Adapters.NoSQL.csproj", "src/adapters/CycleBike.Adapters.NoSQL/"]
+COPY ["src/adapters/CycleBike.Adapters.GenericHttpClient/CycleBike.Adapters.GenericHttpClient.csproj", "src/adapters/CycleBike.Adapters.GenericHttpClient/"]
+COPY ["src/adapters/CycleBike.Adapters.Infrastructure/CycleBike.Adapters.Infrastructure.csproj", "src/adapters/CycleBike.Adapters.Infrastructure/"]
+COPY ["src/adapters/CycleBike.Adapters.SocketAdapter/CycleBike.Adapters.SocketAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketAdapter/"]
+COPY ["src/adapters/CycleBike.Adapters.SocketServerAdapter/CycleBike.Adapters.SocketServerAdapter.csproj", "src/adapters/CycleBike.Adapters.SocketServerAdapter/"]
 RUN dotnet restore "src/adapters/CycleBike.Adapters.WebApi/CycleBike.Adapters.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/adapters/CycleBike.Adapters.WebApi"

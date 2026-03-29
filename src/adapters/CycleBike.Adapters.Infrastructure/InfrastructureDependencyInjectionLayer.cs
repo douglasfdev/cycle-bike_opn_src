@@ -1,9 +1,16 @@
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using CycleBike.Adapters.Infrastructure.Repositories;
+using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Domain.Interfaces;
+using JasperFx.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MongoDB.Driver;
+using Wolverine;
+using Wolverine.ErrorHandling;
+using Wolverine.RabbitMQ;
 
 namespace CycleBike.Adapters.Infrastructure;
 
@@ -24,5 +31,35 @@ public static class InfrastructureDependencyInjectionLayer
         services.AddScoped(typeof(IDatabaseGenericRepository<>), typeof(DatabaseGenericRepository<>));
         services.AddScoped(typeof(IDatabaseWriteRepository<>), typeof(DatabaseWriteRepository<>));
         services.AddScoped(typeof(IDatabaseReadRepository<>), typeof(DatabaseReadRepository<>));
+    }
+    
+    public static IHostBuilder AddServiceBus(this IHostBuilder host)
+    {
+        return host.UseWolverine(opts =>
+        {
+            opts.UseRabbitMq(new Uri(EnvironmentVariable.RabbitMQ().ConnectionString!))
+                .AutoProvision()
+                .ConfigureListeners(listener =>
+                {
+                    listener.PreFetchCount(10);
+                
+                    listener.Sequential();
+                });
+
+            opts.Policies.OnException<HttpRequestException>()
+                .Or<MongoException>() 
+                .RetryWithCooldown(500.Milliseconds(), 1.Seconds(), 5.Seconds());
+
+            // opts.Policies.OnException<BusinessException>()
+            //     .MoveToErrorQueue();
+
+            opts.Policies.OnException<Exception>()
+                .MoveToErrorQueue();
+                
+            // opts.Policies.AllLocalQueues(queue =>
+            // {
+            //     queue.MaximumParallelMessages(10);
+            // });
+        });
     }
 }

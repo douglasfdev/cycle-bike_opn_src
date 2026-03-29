@@ -10,7 +10,7 @@ namespace CycleBike.Adapters.WebApi.Middlewares;
 
 public static class DependencyInjectionLayer
 {
-    public static void AddDIMiddlewares(this IServiceCollection services, IConfiguration configuration)
+    public static void AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddCustomApiVersioning();
         services.AddOpenApi();

@@ -75,6 +75,21 @@ public static class EnvironmentVariable
         }
     }
 
+    public static RabbitMQOptions RabbitMQ()
+    {
+        ArgumentNullException.ThrowIfNull(_configuration);
+        try
+        {
+            return Validate(_configuration
+                .GetSection(nameof(RabbitMQOptions))
+                .Get<RabbitMQOptions>());
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
+        }
+    }
+
     private static T Validate<T>(T? environment) where T : class
     {
         ArgumentNullException.ThrowIfNull(typeof(T).Name, $"Configuration section '{typeof(T).Attributes}' is missing or could not be bound.");
