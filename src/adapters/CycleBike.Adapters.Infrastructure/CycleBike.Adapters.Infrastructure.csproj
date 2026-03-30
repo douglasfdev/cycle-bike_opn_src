@@ -22,10 +22,6 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-      <PackageReference Include="WolverineFx" Version="5.24.0" />
-      <PackageReference Include="WolverineFx.Http" Version="5.24.0" />
-      <PackageReference Include="WolverineFx.RabbitMQ" Version="5.24.0" />
-      <PackageReference Include="WolverineFx.Redis" Version="5.24.0" />
     </ItemGroup>
 
     <ItemGroup>

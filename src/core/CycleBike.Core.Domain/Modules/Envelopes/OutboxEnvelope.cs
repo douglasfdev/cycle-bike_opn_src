@@ -4,10 +4,12 @@ namespace CycleBike.Core.Domain.Modules.Envelopes;
 
 public class OutboxEnvelope
 {
-    [BsonId]
-    public Guid Id { get; set; }
-    public byte[] Data { get; set; }
-    public string Destination { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public bool Sent { get; set; } = false;
+    [BsonId] public Guid Id { get; set; } = Guid.NewGuid();
+    public byte[] Data { get; set; } = null!;
+    public string? MessageType { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public bool Sent { get; set; }
+    public DateTime? SentAt { get; set; }
+    public int Attempts { get; set; }
+    public DateTime? LastAttempt { get; set; }
 }

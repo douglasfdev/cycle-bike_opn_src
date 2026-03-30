@@ -75,14 +75,14 @@ public static class EnvironmentVariable
         }
     }
 
-    public static RabbitMQOptions RabbitMQ()
+    public static MessageBroker MessageBroker()
     {
         ArgumentNullException.ThrowIfNull(_configuration);
         try
         {
             return Validate(_configuration
-                .GetSection(nameof(RabbitMQOptions))
-                .Get<RabbitMQOptions>());
+                .GetSection(nameof(MessageBroker))
+                .Get<MessageBroker>());
         }
         catch (ArgumentException e)
         {

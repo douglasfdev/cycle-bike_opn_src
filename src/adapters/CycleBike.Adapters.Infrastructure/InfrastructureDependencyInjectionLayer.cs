@@ -1,6 +1,7 @@
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using CycleBike.Adapters.Infrastructure.Repositories;
 using CycleBike.Core.Common.Configuration;
+using CycleBike.Core.Common.Exchanges;
 using CycleBike.Core.Domain.Interfaces;
 using JasperFx.Core;
 using Microsoft.EntityFrameworkCore;
@@ -37,14 +38,15 @@ public static class InfrastructureDependencyInjectionLayer
     {
         return host.UseWolverine(opts =>
         {
-            opts.UseRabbitMq(new Uri(EnvironmentVariable.RabbitMQ().ConnectionString!))
+            opts.UseRabbitMq(new Uri(EnvironmentVariable.MessageBroker().ConnectionString!))
                 .AutoProvision()
                 .ConfigureListeners(listener =>
                 {
                     listener.PreFetchCount(10);
-                
+
                     listener.Sequential();
-                });
+                })
+                .DeclareExchanges();
 
             opts.Policies.OnException<HttpRequestException>()
                 .Or<MongoException>() 

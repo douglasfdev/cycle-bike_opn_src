@@ -7,4 +7,10 @@ public class MongoContext(IMongoClient client): IMongoContext
 {
     public IMongoDatabase Connect()
         => client.GetDatabase(EnvironmentVariable.MongoDb().Database);
+
+    public void Dispose()
+    {
+        client.Dispose();
+    }
+    public IClientSessionHandle? Session => client.StartSession();
 }

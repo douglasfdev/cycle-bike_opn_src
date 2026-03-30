@@ -7,7 +7,7 @@
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - 5161:5161
+      - 8080:5161
     networks:
       - cycle-bike
     depends_on:

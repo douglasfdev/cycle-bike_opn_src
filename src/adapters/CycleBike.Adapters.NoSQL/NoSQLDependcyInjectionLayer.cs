@@ -23,7 +23,7 @@ public static class NoSQLDependcyInjectionLayer
         var mongoConnectionString = EnvironmentVariable.MongoDb().ConnectionString;
         
         services.AddRedisCache(redisConnectionString, configureJsonOptions);
-        services.AddMongoDb(configuration, mongoConnectionString);
+        services.AddMongoDb(mongoConnectionString);
 
         return services;
     }
@@ -67,11 +67,8 @@ public static class NoSQLDependcyInjectionLayer
     
     private static IServiceCollection AddMongoDb(
         this IServiceCollection services,
-        IConfiguration configuration,
         string connectionStringKey)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(connectionStringKey);
-
         services.AddSingleton<IMongoClient>(sp =>
         {
             var settings = MongoClientSettings.FromConnectionString(connectionStringKey);
@@ -82,7 +79,7 @@ public static class NoSQLDependcyInjectionLayer
             return new MongoClient(settings);
         });
 
-        services.AddScoped<MongoContext>();
+        services.AddScoped<IMongoContext, MongoContext>();
         services.AddScoped(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
 
         return services;
