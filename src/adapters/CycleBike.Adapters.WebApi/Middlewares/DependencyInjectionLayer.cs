@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
 using CycleBike.Adapters.GenericHttpClient;
 using CycleBike.Adapters.Infrastructure;
-using CycleBike.Adapters.NoSQL;
 using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Adapters.WebApi.Configuration;
 using CycleBike.Core.Common.Configuration;
+using CycleBike.Core.Domain;
 
 namespace CycleBike.Adapters.WebApi.Middlewares;
 
@@ -27,9 +27,10 @@ public static class DependencyInjectionLayer
                 Headers = EnvironmentVariable.SignalR().Headers
             };
         });
+        services.AddDomain();
         services.AddSignalR();
         services.AddHttpClientAdapter();
-        services.AddNoSqlLayer(configuration, opt =>
+        services.AddNoSqlLayer(opt =>
         {
             opt.PropertyNameCaseInsensitive = true;
             opt.NumberHandling = JsonNumberHandling.AllowReadingFromString;

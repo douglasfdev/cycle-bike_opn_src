@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace CycleBike.Core.Domain.Interfaces;
 
-public interface IMongoDbRepository<TEntity> : IDisposable
+public interface INoSQLRepository<TEntity> : IDisposable
 {
     IQueryable<TEntity> Query(Expression<Func<TEntity, bool>>? filter);
     Task<List<TEntity>> GetAllAsync();

@@ -1,7 +1,7 @@
 using CycleBike.Core.Common.Configuration;
 using MongoDB.Driver;
 
-namespace CycleBike.Adapters.NoSQL.Modules.MongoDB.Context;
+namespace CycleBike.Adapters.Infrastructure.Modules.MongoDB.Context;
 
 public class MongoContext(IMongoClient client): IMongoContext
 {
@@ -13,4 +13,8 @@ public class MongoContext(IMongoClient client): IMongoContext
         client.Dispose();
     }
     public IClientSessionHandle? Session => client.StartSession();
+    public async Task<IClientSessionHandle> StartSessionAsync()
+    {
+        return await client.StartSessionAsync();
+    }
 }

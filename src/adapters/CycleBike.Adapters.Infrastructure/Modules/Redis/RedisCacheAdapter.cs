@@ -2,7 +2,7 @@ using System.Text.Json;
 using CycleBike.Adapters.NoSQL.Interfaces;
 using StackExchange.Redis;
 
-namespace CycleBike.Adapters.NoSQL.Modules.Redis;
+namespace CycleBike.Adapters.Infrastructure.Modules.Redis;
 
 public sealed class RedisCacheAdapter(
     IConnectionMultiplexer connectionMultiplexer,

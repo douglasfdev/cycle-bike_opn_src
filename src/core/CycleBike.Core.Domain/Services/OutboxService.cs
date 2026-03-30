@@ -1,18 +1,17 @@
 using System.Text;
 using System.Text.Json;
 using CycleBike.Core.Domain.Interfaces;
-using CycleBike.Core.Domain.Modules.Envelopes;
+using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using MongoDB.Driver.Linq;
 
 namespace CycleBike.Core.Domain.Services;
 
-public class MongoOutboxService(IMongoDbRepository<OutboxEnvelope> repository) : IMongoOutboxService
+public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutboxService
 {
     public async Task EnqueueAsync<T>(T message)
     {
         var envelope = new OutboxEnvelope
         {
-            Id = Guid.NewGuid(),
             Data = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)),
             MessageType = typeof(T).AssemblyQualifiedName,
             CreatedAt = DateTime.UtcNow,
@@ -31,9 +30,9 @@ public class MongoOutboxService(IMongoDbRepository<OutboxEnvelope> repository) :
             .ToListAsync();
     }
 
-    public async Task<OutboxEnvelope?> GetPendingMessageAsync(Guid id)
+    public async Task<OutboxEnvelope?> GetPendingMessageAsync(string id)
     {
-        return await repository.GetByIdAsync(id.ToString());
+        return await repository.GetByIdAsync(id);
     }
 
     public async Task DeleteManyByCollectionTimesSpanAsync(TimeSpan timespan)
@@ -46,25 +45,25 @@ public class MongoOutboxService(IMongoDbRepository<OutboxEnvelope> repository) :
         await repository.DeleteManyAsync(toDelete);
     }
 
-    public async Task MarkAsSentAsync(Guid id)
+    public async Task MarkAsSentAsync(string id)
     {
-        var envelope = await repository.GetByIdAsync(id.ToString());
+        var envelope = await repository.GetByIdAsync(id);
         if (envelope != null)
         {
             envelope.Sent = true;
             envelope.SentAt = DateTime.UtcNow;
-            await repository.UpdateAsync(id.ToString(), envelope);
+            await repository.UpdateAsync(id, envelope);
         }
     }
 
-    public async Task IncrementAttemptAsync(Guid id)
+    public async Task IncrementAttemptAsync(string id)
     {
-        var envelope = await repository.GetByIdAsync(id.ToString());
+        var envelope = await repository.GetByIdAsync(id);
         if (envelope != null)
         {
             envelope.Attempts++;
             envelope.LastAttempt = DateTime.UtcNow;
-            await repository.UpdateAsync(id.ToString(), envelope);
+            await repository.UpdateAsync(id, envelope);
         }
     }
 }

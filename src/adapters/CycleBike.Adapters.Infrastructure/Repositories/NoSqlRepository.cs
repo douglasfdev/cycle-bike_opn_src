@@ -1,12 +1,11 @@
 using System.Linq.Expressions;
-using CycleBike.Adapters.NoSQL.Interfaces;
-using CycleBike.Adapters.NoSQL.Modules.MongoDB.Context;
+using CycleBike.Adapters.Infrastructure.Modules.MongoDB.Context;
 using CycleBike.Core.Domain.Interfaces;
 using MongoDB.Driver;
 
-namespace CycleBike.Adapters.NoSQL.Modules.Repositories;
+namespace CycleBike.Adapters.Infrastructure.Repositories;
 
-public class MongoDbRepository<TEntity>(IMongoContext context) : IMongoDbRepository<TEntity>
+public class NoSqlRepository<TEntity>(IMongoContext context) : INoSQLRepository<TEntity> where TEntity : class
 {
     private IMongoCollection<TEntity> GetCollection()
         => context.Connect().GetCollection<TEntity>(typeof(TEntity).Name);

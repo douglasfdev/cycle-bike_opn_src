@@ -2,7 +2,6 @@ using CycleBike.Adapters.Infrastructure;
 using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
-using CycleBike.Adapters.WebApi.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
