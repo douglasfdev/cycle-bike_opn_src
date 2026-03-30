@@ -2,7 +2,7 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 
 public class Profile
 {
-    public Ulid Id { get; set; }
+    public string Id { get => Id.ToString(); set; }
     public Ulid AccountId { get; set; }
     public Customer Customer { get; set; }
     public Contact Contact { get; set; }

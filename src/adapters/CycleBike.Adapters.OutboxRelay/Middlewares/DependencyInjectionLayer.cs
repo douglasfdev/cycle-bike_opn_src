@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
 using CycleBike.Adapters.Infrastructure;
 using CycleBike.Core.Domain;
-using Wolverine;
 
 namespace CycleBike.Adapters.OutboxRelay.Middlewares;
 

@@ -6,6 +6,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.InitializeEnvironments();
 builder.Services.AddMiddlewares(builder.Configuration);
 
+builder.Services.BuildServiceProvider().GetService<Worker>();
 
 var host = builder.Build();
 host.Run();
