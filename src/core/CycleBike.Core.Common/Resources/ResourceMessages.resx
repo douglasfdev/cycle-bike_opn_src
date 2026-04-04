@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="DOM00001" xml:space="preserve">
+        <value />
+    </data>
+    <data name="INF00001" xml:space="preserve">
+        <value>Cache Get '{0}'</value>
+    </data>
+    <data name="SKT00001" xml:space="preserve">
+        <value />
+    </data>
+    <data name="HTP00001" xml:space="preserve">
+        <value />
+    </data>
+    <data name="APL00001" xml:space="preserve">
+        <value />
+    </data>
+    <data name="API00001" xml:space="preserve">
+        <value />
+    </data>
+    <data name="INF00002" xml:space="preserve">
+        <value>Cache remove '{0}'</value>
+    </data>
+    <data name="INF00003" xml:space="preserve">
+        <value>Cache set '{0}'</value>
+    </data>
+    <data name="INF00004" xml:space="preserve">
+        <value>Cache exists '{0}'</value>
+    </data>
+    <data name="INF00005" xml:space="preserve">
+        <value>Caches setted '{0}'</value>
+    </data>
+    <data name="INF00006" xml:space="preserve">
+        <value>Caches getted '{0}'</value>
+    </data>
+</root>

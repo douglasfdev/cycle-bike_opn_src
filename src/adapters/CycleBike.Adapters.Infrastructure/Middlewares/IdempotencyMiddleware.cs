@@ -31,7 +31,7 @@ public static class IdempotencyMiddleware
         IMongoContext context, 
         INoSQLRepository<InboxMessage> inboxRepo)
     {
-        await inboxRepo.AddAsync(new InboxMessage(DateTime.UtcNow));
+        await inboxRepo.AddAsync(new InboxMessage(DateTime.UtcNow, false, 0));
 
         if (context.Session is { IsInTransaction: true })
         {

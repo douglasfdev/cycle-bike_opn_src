@@ -1,4 +1,4 @@
-namespace CycleBike.Adapters.NoSQL.Interfaces;
+namespace CycleBike.Core.Domain.Interfaces;
 
 public interface ICacheAdapter
 {

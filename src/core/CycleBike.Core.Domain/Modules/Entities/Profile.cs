@@ -7,5 +7,5 @@ public class Profile
     public Customer Customer { get; set; }
     public Contact Contact { get; set; }
     public Address Address { get; set; }
-    public List<PaymentMethod> PaymentMethods { get; set; }
+    public List<PaymentMethod> PaymentMethods { get; set; } = new();
 }

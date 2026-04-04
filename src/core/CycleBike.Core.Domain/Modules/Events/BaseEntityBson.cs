@@ -4,16 +4,28 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CycleBike.Core.Domain.Modules.Events;
 
-public abstract class BaseEntityBson
+public abstract class BaseEntityBson(bool sent, int attempts, string? messageType, string? status, DateTime? sentAt, DateTime? lastAttempt)
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; protected init; } = null!;
-    public string? MessageType { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public bool Sent { get; set; }
-    public DateTime? SentAt { get; set; }
-    public int Attempts { get; set; }
-    public DateTime? LastAttempt { get; set; }
-    public string Status { get; set; } = nameof(StatusProcess.InProgress).ToLowerInvariant();
+    public string Id { get; private set; } = ObjectId.GenerateNewId().ToString();
+    public string? MessageType { get; private set; } = messageType;
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+    public bool Sent { get; private set; } = sent;
+    public DateTime? SentAt { get; private set; } = sentAt;
+    public int Attempts { get; private set; } = attempts;
+    public DateTime? LastAttempt { get; private set; } = lastAttempt;
+    public string Status { get; private set; } = status ?? nameof(StatusProcess.Initied).ToLowerInvariant();
+
+    public void SetSent(bool sent, DateTime sendAt)
+    {
+        Sent = sent;
+        SentAt = sendAt;
+    }
+    
+    public void IncrementAttempts(int attempts, DateTime lastAttempted)
+    {
+        Attempts += attempts;
+        LastAttempt = lastAttempted;
+    }
 }

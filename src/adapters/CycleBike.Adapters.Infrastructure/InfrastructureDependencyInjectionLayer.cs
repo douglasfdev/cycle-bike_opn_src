@@ -1,19 +1,22 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using CycleBike.Adapters.Infrastructure.Modules.MongoDB.Context;
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using CycleBike.Adapters.Infrastructure.Modules.Redis;
+using CycleBike.Adapters.Infrastructure.Modules.Redis.Decorators;
+using CycleBike.Adapters.Infrastructure.Modules.Redis.Policies;
 using CycleBike.Adapters.Infrastructure.Modules.Wolverine.Policies;
 using CycleBike.Adapters.Infrastructure.Repositories;
-using CycleBike.Adapters.NoSQL.Interfaces;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.Exchanges;
+using CycleBike.Core.Common.Resources;
 using CycleBike.Core.Domain.Interfaces;
 using JasperFx.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using StackExchange.Redis;
 using Wolverine;
@@ -77,42 +80,39 @@ public static class InfrastructureDependencyInjectionLayer
     public static void AddNoSqlLayer(this IServiceCollection services,
         Action<JsonSerializerOptions>? configureJsonOptions = null)
     {
-        var redisConnectionString = EnvironmentVariable.Redis().ConnectionString;
         var mongoConnectionString = EnvironmentVariable.MongoDb().ConnectionString;
+        
+        var options = new JsonSerializerOptions();
+        configureJsonOptions?.Invoke(options);
 
-        services.AddRedisCache(redisConnectionString, configureJsonOptions);
+        services.AddRedisCache();
         services.AddMongoDb(mongoConnectionString);
     }
 
-    private static void AddRedisCache(this IServiceCollection services, string connectionString,
-        Action<JsonSerializerOptions>? configureJsonOptions = null)
+    private static void AddRedisCache(this IServiceCollection services)
     {
-        services.AddSingleton<IConnectionMultiplexer>(sp =>
+        services.AddSingleton<ICacheAdapter>(sp =>
         {
-            var options = ConfigurationOptions.Parse(connectionString);
-            options.AbortOnConnectFail = false;
-            options.ConnectTimeout = 5000;
-            options.SyncTimeout = 5000;
-            options.AsyncTimeout = 5000;
-
-            return ConnectionMultiplexer.Connect(options);
+            var redis = sp.GetRequiredService<IConnectionMultiplexer>();
+            var logger = sp.GetRequiredService<ILogger<LoggingCacheDecorator>>();
+            var adapter = new RedisCacheAdapter(redis);
+            var localizer = sp.GetRequiredService<IStringLocalizer<ResourceMessages>>();
+            return new LoggingCacheDecorator(adapter, logger, localizer);
+        });
+        
+        services.AddSingleton<IDefaultCachePolicy>(sp =>
+        {
+            var cache = sp.GetRequiredService<ICacheAdapter>();
+            return new DefaultCachePolicy(cache);
         });
 
-        services.AddSingleton(sp =>
+        services.AddSingleton<ITokenCachePolicy>(sp =>
         {
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = false,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
-
-            configureJsonOptions?.Invoke(jsonOptions);
-
-            return jsonOptions;
+            var cache = sp.GetRequiredService<ICacheAdapter>();
+            return new TokenCachePolicy(cache);
         });
 
-        services.AddSingleton<ICacheAdapter, RedisCacheAdapter>();
+        services.AddSingleton<ICacheService, CacheService>();
     }
 
     private static void AddMongoDb(this IServiceCollection services, string connectionStringKey)

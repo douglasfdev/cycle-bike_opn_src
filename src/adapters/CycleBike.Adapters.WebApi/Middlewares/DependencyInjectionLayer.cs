@@ -5,6 +5,7 @@ using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Adapters.WebApi.Configuration;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Domain;
+using StackExchange.Redis;
 
 namespace CycleBike.Adapters.WebApi.Middlewares;
 
@@ -12,6 +13,8 @@ public static class DependencyInjectionLayer
 {
     public static void AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
     {
+        var redisConnectionString = EnvironmentVariable.Redis().ConnectionString;
+
         services.AddCustomApiVersioning();
         services.AddOpenApi();
         services.AddSocketAdapter(options =>
@@ -30,6 +33,10 @@ public static class DependencyInjectionLayer
         services.AddDomain();
         services.AddSignalR();
         services.AddHttpClientAdapter();
+        
+        services.AddSingleton<IConnectionMultiplexer>(sp => 
+            ConnectionMultiplexer.Connect(redisConnectionString));
+        
         services.AddNoSqlLayer(opt =>
         {
             opt.PropertyNameCaseInsensitive = true;

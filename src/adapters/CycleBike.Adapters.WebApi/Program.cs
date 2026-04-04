@@ -9,6 +9,8 @@ builder.Configuration.InitializeEnvironments();
 builder.Services.AddMiddlewares(builder.Configuration);
 builder.Host.AddServiceBus();
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 builder.Services.AddControllers();
 
 var app = builder.Build();

@@ -1,5 +1,5 @@
 using System.Text.Json;
-using CycleBike.Adapters.NoSQL.Interfaces;
+using CycleBike.Core.Domain.Interfaces;
 using StackExchange.Redis;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Redis;
@@ -8,7 +8,7 @@ public sealed class RedisCacheAdapter(
     IConnectionMultiplexer connectionMultiplexer,
     JsonSerializerOptions? jsonOptions = null) : ICacheAdapter
 {
-    private readonly IDatabase _database = connectionMultiplexer.GetDatabase();
+    private readonly IDatabase _cache = connectionMultiplexer.GetDatabase();
     private readonly JsonSerializerOptions _jsonOptions = jsonOptions ?? new JsonSerializerOptions
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -19,7 +19,7 @@ public sealed class RedisCacheAdapter(
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
-        var value = await _database.StringGetAsync(key);
+        var value = await _cache.StringGetAsync(key);
         
         return value.IsNullOrEmpty 
             ? default 
@@ -33,28 +33,28 @@ public sealed class RedisCacheAdapter(
 
         var serializedValue = JsonSerializer.Serialize(value, _jsonOptions);
         
-        return await _database.StringSetAsync((RedisKey)key, (RedisValue)serializedValue, expiration, When.Always, CommandFlags.None);
+        return await _cache.StringSetAsync((RedisKey)key, (RedisValue)serializedValue, expiration, When.Always, CommandFlags.None);
     }
 
     public async Task<bool> DeleteAsync(string key, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
         
-        return await _database.KeyDeleteAsync(key);
+        return await _cache.KeyDeleteAsync(key);
     }
 
     public async Task<bool> ExistsAsync(string key, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
         
-        return await _database.KeyExistsAsync(key);
+        return await _cache.KeyExistsAsync(key);
     }
 
     public async Task<bool> SetMultipleAsync<T>(IDictionary<string, T> keyValuePairs, TimeSpan? expiration = null, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(keyValuePairs);
 
-        var batch = _database.CreateBatch();
+        var batch = _cache.CreateBatch();
         var tasks = new List<Task<bool>>();
 
         foreach (var kvp in keyValuePairs)
@@ -75,7 +75,7 @@ public sealed class RedisCacheAdapter(
 
         var keyArray = keys.ToArray();
         var redisKeys = keyArray.Select(k => (RedisKey)k).ToArray();
-        var values = await _database.StringGetAsync(redisKeys);
+        var values = await _cache.StringGetAsync(redisKeys);
 
         var result = new Dictionary<string, T?>();
         

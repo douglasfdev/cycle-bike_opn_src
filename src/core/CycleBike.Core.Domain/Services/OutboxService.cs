@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using CycleBike.Core.Domain.Enums;
 using CycleBike.Core.Domain.Interfaces;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using MongoDB.Driver.Linq;
@@ -10,14 +11,7 @@ public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutbo
 {
     public async Task EnqueueAsync<T>(T message)
     {
-        var envelope = new OutboxEnvelope
-        {
-            Data = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)),
-            MessageType = typeof(T).AssemblyQualifiedName,
-            CreatedAt = DateTime.UtcNow,
-            Sent = false,
-            Attempts = 0
-        };
+        var envelope = new OutboxEnvelope(JsonSerializer.SerializeToUtf8Bytes(message), false, typeof(T).AssemblyQualifiedName, DateTime.UtcNow, 0, null, nameof(StatusProcess.InProgress));
 
         await repository.AddAsync(envelope);
     }
@@ -50,8 +44,7 @@ public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutbo
         var envelope = await repository.GetByIdAsync(id);
         if (envelope != null)
         {
-            envelope.Sent = true;
-            envelope.SentAt = DateTime.UtcNow;
+            envelope.SetSent(true, DateTime.UtcNow);
             await repository.UpdateAsync(id, envelope);
         }
     }
@@ -61,8 +54,7 @@ public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutbo
         var envelope = await repository.GetByIdAsync(id);
         if (envelope != null)
         {
-            envelope.Attempts++;
-            envelope.LastAttempt = DateTime.UtcNow;
+            envelope.IncrementAttempts(1, DateTime.UtcNow);
             await repository.UpdateAsync(id, envelope);
         }
     }

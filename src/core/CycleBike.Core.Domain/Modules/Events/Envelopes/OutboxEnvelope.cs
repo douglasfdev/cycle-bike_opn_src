@@ -2,13 +2,7 @@ using MongoDB.Bson;
 
 namespace CycleBike.Core.Domain.Modules.Events.Envelopes;
 
-public class OutboxEnvelope : BaseEntityBson
+public class OutboxEnvelope(byte[]? data, bool sent, string? messageType, DateTime? sentAt, int attempts, DateTime? lastAttempt, string status) : BaseEntityBson(sent, attempts, messageType, status, sentAt, lastAttempt)
 {
-    public OutboxEnvelope()
-    {
-        Id = ObjectId.GenerateNewId().ToString(); // gerado aqui
-    }
-
-    
-    public byte[] Data { get; set; } = null!;
+    public byte[]? Data { get; } = data;
 }
