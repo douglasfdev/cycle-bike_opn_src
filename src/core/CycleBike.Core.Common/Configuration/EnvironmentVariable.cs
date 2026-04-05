@@ -14,85 +14,19 @@ public static class EnvironmentVariable
     {
         _configuration = configuration;
     }
-
-    public static SocketIOAdapterOptions SocketIoAdapter()
+    
+    public static T TryGetEnvironment<T>(string key, Func<T, T>? resolver = null)
     {
         ArgumentNullException.ThrowIfNull(_configuration);
-        try
-        {
-            return Validate(_configuration
-                .GetSection(nameof(SocketIOAdapterOptions))
-                .Get<SocketIOAdapterOptions>());
-        }
-        catch (ArgumentNullException e)
-        {
-            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
-        }
-    }
 
-    public static SignalROptions SignalR()
-    {
-        ArgumentNullException.ThrowIfNull(_configuration);
-        try
-        {
-            return Validate(_configuration
-                .GetSection(nameof(SignalROptions))
-                .Get<SignalROptions>());
-        }
-        catch (ArgumentNullException e)
-        {
-            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
-        }
-    }
+        var section = _configuration.GetSection(key);
+        T? result;
 
-    public static MongoDbOptions MongoDb()
-    {
-        ArgumentNullException.ThrowIfNull(_configuration);
-        try
-        {
-            return Validate(_configuration
-                .GetSection(nameof(MongoDbOptions))
-                .Get<MongoDbOptions>());
-        }
-        catch (ArgumentNullException e)
-        {
-            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
-        }
-    }
+        result = section.Get<T>();
 
-    public static RedisOptions Redis()
-    {
-        ArgumentNullException.ThrowIfNull(_configuration);
-        try
-        {
-            return Validate(_configuration
-                .GetSection(nameof(RedisOptions))
-                .Get<RedisOptions>());
-        }
-        catch (ArgumentNullException e)
-        {
-            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
-        }
-    }
+        if (result == null)
+            throw new Exception($"Configuração '{key}' não encontrada.");
 
-    public static MessageBroker MessageBroker()
-    {
-        ArgumentNullException.ThrowIfNull(_configuration);
-        try
-        {
-            return Validate(_configuration
-                .GetSection(nameof(MessageBroker))
-                .Get<MessageBroker>());
-        }
-        catch (ArgumentException e)
-        {
-            throw new ArgumentNullException($"Failed to bind configurations {e.Message}");
-        }
-    }
-
-    private static T Validate<T>(T? environment) where T : class
-    {
-        ArgumentNullException.ThrowIfNull(typeof(T).Name, $"Configuration section '{typeof(T).Attributes}' is missing or could not be bound.");
-        return environment!;
+        return resolver != null ? resolver(result) : result;
     }
 }

@@ -6,5 +6,6 @@ public interface IMongoContext : IDisposable
 {
     IMongoDatabase Connect();
     IClientSessionHandle? Session { get; }
+    bool HasSession { get; }
     Task<IClientSessionHandle> StartSessionAsync();
 }

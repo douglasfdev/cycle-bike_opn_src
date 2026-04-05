@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using CycleBike.Adapters.Infrastructure.Modules.MongoDB.Context;
 using CycleBike.Core.Domain.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CycleBike.Adapters.Infrastructure.Repositories;
@@ -10,7 +11,7 @@ public class NoSqlRepository<TEntity>(IMongoContext context) : INoSQLRepository<
     private IMongoCollection<TEntity> GetCollection()
         => context.Connect().GetCollection<TEntity>(typeof(TEntity).Name);
     
-    private bool HasSession => context.Session != null;
+    private bool HasSession => context.HasSession;
 
     public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>>? filter)
     {
@@ -44,7 +45,8 @@ public class NoSqlRepository<TEntity>(IMongoContext context) : INoSQLRepository<
 
     public async Task<TEntity?> GetByIdAsync(string id)
     {
-        var filter = Builders<TEntity>.Filter.Eq("_id", id);
+        if (!ObjectId.TryParse(id, out ObjectId objectId)) return null;
+        var filter = Builders<TEntity>.Filter.Eq("_id", objectId);
 
         if (HasSession)
         {

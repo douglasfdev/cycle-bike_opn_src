@@ -5,11 +5,12 @@ namespace CycleBike.Core.Common.Configuration;
 public class MessageBroker
 {
     public required string ConnectionString { get; init; }
-    public required List<RabbitMqExchanges> Exchanges { get; init; } = new();
+    public required List<RabbitMqExchange> Exchanges { get; init; } = new();
 }
 
-public class RabbitMqExchanges
+public class RabbitMqExchange
 {
+    public required string Process { get; init; }
     public required string Name { get; init; }
     public required string Type { get; init; }
     public required bool Durable { get; init; }

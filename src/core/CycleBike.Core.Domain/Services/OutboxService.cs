@@ -1,6 +1,4 @@
-using System.Text;
 using System.Text.Json;
-using CycleBike.Core.Domain.Enums;
 using CycleBike.Core.Domain.Interfaces;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using MongoDB.Driver.Linq;
@@ -9,11 +7,12 @@ namespace CycleBike.Core.Domain.Services;
 
 public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutboxService
 {
-    public async Task EnqueueAsync<T>(T message)
+    public async Task<OutboxEnvelope> EnqueueAsync<T>(T message)
     {
-        var envelope = new OutboxEnvelope(JsonSerializer.SerializeToUtf8Bytes(message), false, typeof(T).AssemblyQualifiedName, DateTime.UtcNow, 0, null, nameof(StatusProcess.InProgress));
+        var envelope = new OutboxEnvelope( true, 0, JsonSerializer.SerializeToUtf8Bytes(message), typeof(T).AssemblyQualifiedName);
 
         await repository.AddAsync(envelope);
+        return envelope;
     }
 
     public async Task<List<OutboxEnvelope>> GetPendingMessagesAsync()

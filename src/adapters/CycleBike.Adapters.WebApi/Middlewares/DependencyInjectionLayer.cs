@@ -5,7 +5,6 @@ using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Adapters.WebApi.Configuration;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Domain;
-using StackExchange.Redis;
 
 namespace CycleBike.Adapters.WebApi.Middlewares;
 
@@ -13,29 +12,26 @@ public static class DependencyInjectionLayer
 {
     public static void AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
     {
-        var redisConnectionString = EnvironmentVariable.Redis().ConnectionString;
-
         services.AddCustomApiVersioning();
         services.AddOpenApi();
         services.AddSocketAdapter(options =>
         {
+            var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
             options = options with
             {
-                HubUrl = EnvironmentVariable.SignalR().HubUrl,
-                AutomaticReconnect = EnvironmentVariable.SignalR().AutomaticReconnect,
-                ReconnectDelays = EnvironmentVariable.SignalR().ReconnectDelays,
-                HandshakeTimeout = EnvironmentVariable.SignalR().HandshakeTimeout,
-                KeepAliveInterval = EnvironmentVariable.SignalR().KeepAliveInterval,
-                ServerTimeout = EnvironmentVariable.SignalR().ServerTimeout,
-                Headers = EnvironmentVariable.SignalR().Headers
+                HubUrl = signalR.HubUrl,
+                AutomaticReconnect = signalR.AutomaticReconnect,
+                ReconnectDelays = signalR.ReconnectDelays,
+                HandshakeTimeout = signalR.HandshakeTimeout,
+                KeepAliveInterval = signalR.KeepAliveInterval,
+                ServerTimeout = signalR.ServerTimeout,
+                Headers = signalR.Headers
             };
         });
         services.AddDomain();
         services.AddSignalR();
         services.AddHttpClientAdapter();
-        
-        services.AddSingleton<IConnectionMultiplexer>(sp => 
-            ConnectionMultiplexer.Connect(redisConnectionString));
+
         
         services.AddNoSqlLayer(opt =>
         {

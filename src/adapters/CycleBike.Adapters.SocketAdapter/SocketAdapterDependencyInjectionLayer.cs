@@ -18,7 +18,7 @@ public static class SocketAdapterDependencyInjectionLayer
 
         var options = new SignalROptions
         {
-            HubUrl = EnvironmentVariable.SignalR().HubUrl,
+            HubUrl = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions)).HubUrl,
         };
         configureOptions(options);
 

@@ -12,6 +12,8 @@
       - cycle-bike
     depends_on:
       - mongodb
+      - redis
+      - rabbitmq
     deploy:
       resources:
         limits:
@@ -29,8 +31,8 @@
     ports:
       - 27017:27017
     networks:
-      - cycle-bike
-        
+      - cycle-bike   
+
   rabbitmq:
     image: rabbitmq:3.9-management-alpine
     restart: always
@@ -49,6 +51,20 @@
       - RABBITMQ_DEFAULT_PASS=guest
     depends_on:
       - mongodb
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - cycle-bike
+    command: redis-server --user cycle-bike on nopass ~* &* +@all
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
 
 networks:
   cycle-bike:

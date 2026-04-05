@@ -6,15 +6,16 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.InitializeEnvironments();
 builder.Services.AddSocketAdapter(options =>
 {
+    var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
     options = options with
     {
-        HubUrl = EnvironmentVariable.SignalR().HubUrl,
-        AutomaticReconnect = EnvironmentVariable.SignalR().AutomaticReconnect,
-        ReconnectDelays = EnvironmentVariable.SignalR().ReconnectDelays,
-        HandshakeTimeout = EnvironmentVariable.SignalR().HandshakeTimeout,
-        KeepAliveInterval = EnvironmentVariable.SignalR().KeepAliveInterval,
-        ServerTimeout = EnvironmentVariable.SignalR().ServerTimeout,
-        Headers = EnvironmentVariable.SignalR().Headers
+        HubUrl = signalR.HubUrl,
+        AutomaticReconnect = signalR.AutomaticReconnect,
+        ReconnectDelays = signalR.ReconnectDelays,
+        HandshakeTimeout = signalR.HandshakeTimeout,
+        KeepAliveInterval = signalR.KeepAliveInterval,
+        ServerTimeout = signalR.ServerTimeout,
+        Headers = signalR.Headers
     };
 });
 

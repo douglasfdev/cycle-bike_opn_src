@@ -7,7 +7,8 @@ using CycleBike.Adapters.Infrastructure.Modules.Redis.Policies;
 using CycleBike.Adapters.Infrastructure.Modules.Wolverine.Policies;
 using CycleBike.Adapters.Infrastructure.Repositories;
 using CycleBike.Core.Common.Configuration;
-using CycleBike.Core.Common.Exchanges;
+using CycleBike.Core.Common.Interfaces;
+using CycleBike.Core.Common.MessageBroker;
 using CycleBike.Core.Common.Resources;
 using CycleBike.Core.Domain.Interfaces;
 using JasperFx.Core;
@@ -44,19 +45,19 @@ public static class InfrastructureDependencyInjectionLayer
         services.AddScoped(typeof(IDatabaseReadRepository<>), typeof(DatabaseReadRepository<>));
     }
 
-    public static IHostBuilder AddServiceBus(this IHostBuilder host)
+    public static IHostBuilder AddServiceBus(this IHostBuilder host, Action<WolverineOptions>? configure = null)
     {
         return host.UseWolverine(opts =>
         {
-            opts.UseRabbitMq(new Uri(EnvironmentVariable.MessageBroker().ConnectionString!))
-                .AutoProvision()
-                .ConfigureListeners(listener =>
-                {
-                    listener.PreFetchCount(10);
+            var connection = new Uri(EnvironmentVariable.TryGetEnvironment<MessageBroker>(nameof(MessageBroker))
+                .ConnectionString!);
 
-                    listener.Sequential();
-                })
-                .DeclareExchanges();
+            opts.UseRabbitMq(connection)
+                .AutoProvision()
+                .DeclareExchanges()
+                .EnableWolverineControlQueues();
+
+            opts.RegisterTopicRouters();
 
             opts.Policies.OnException<HttpRequestException>()
                 .Or<MongoException>()
@@ -74,16 +75,23 @@ public static class InfrastructureDependencyInjectionLayer
             // {
             //     queue.MaximumParallelMessages(10);
             // });
+
+            configure?.Invoke(opts);
         });
     }
 
     public static void AddNoSqlLayer(this IServiceCollection services,
         Action<JsonSerializerOptions>? configureJsonOptions = null)
     {
-        var mongoConnectionString = EnvironmentVariable.MongoDb().ConnectionString;
+        var redisConnectionString = EnvironmentVariable.TryGetEnvironment<RedisOptions>(nameof(RedisOptions)).ConnectionString;
+        var mongoConnectionString = EnvironmentVariable.TryGetEnvironment<MongoDbOptions>(nameof(MongoDbOptions)).ConnectionString;
         
         var options = new JsonSerializerOptions();
         configureJsonOptions?.Invoke(options);
+        
+                
+        services.AddSingleton<IConnectionMultiplexer>(sp => 
+            ConnectionMultiplexer.Connect(redisConnectionString));
 
         services.AddRedisCache();
         services.AddMongoDb(mongoConnectionString);

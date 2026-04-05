@@ -4,7 +4,7 @@ namespace CycleBike.Core.Domain.Interfaces;
 
 public interface IOutboxService
 {
-    Task EnqueueAsync<T>(T message);
+    Task<OutboxEnvelope> EnqueueAsync<T>(T message);
      Task<List<OutboxEnvelope>> GetPendingMessagesAsync();
      Task<OutboxEnvelope?> GetPendingMessageAsync(string id);
      Task DeleteManyByCollectionTimesSpanAsync(TimeSpan timespan);
