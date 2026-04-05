@@ -4,7 +4,7 @@ using Cycle.Core.Application.Schemas.Commands;
 
 namespace Cycle.Core.Application.Modules.Product;
 
-public class CreateProductHandler() : CommandHandler<Command.ProductCommand.CreateProduct>
+public class CreateProductHandler() : CommandHandler<ProductCommands.CreateProduct>
 {
     public override Task Handle(ProductCommands.CreateProduct command, CancellationToken cancellationToken)
     {
