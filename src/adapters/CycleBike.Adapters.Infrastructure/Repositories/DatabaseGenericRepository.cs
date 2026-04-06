@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using CycleBike.Core.Domain.Interfaces;
 using CycleBike.Core.Domain.Modules;
+using CycleBike.Core.Domain.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace CycleBike.Adapters.Infrastructure.Repositories;
@@ -19,7 +20,7 @@ public class DatabaseGenericRepository<T>(
     public async Task<T?> GetByIdAsync(Ulid id) => 
         await _readSet.FindAsync(id);
 
-    public async Task<PagedResult<T>> GetPagedAsync(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, int pageNumber = 1, int pageSize = 10)
+    public async Task<PagedResponse<T>> GetPagedAsync(int pageNumber = 1, int pageSize = 10, Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
     {
         IQueryable<T> query = _readSet.AsNoTracking();
 
@@ -35,13 +36,13 @@ public class DatabaseGenericRepository<T>(
 
         var totalItems = await query.CountAsync();
 
-        return new PagedResult<T>(items, totalItems, pageNumber, pageSize);;
+        return new PagedResponse<T>(items, totalItems, pageNumber, pageSize);;
     }
 
     public async Task<T?> GetByPredicateAsync(Expression<Func<T, bool>> predicate) => 
         await _readSet.AsNoTracking().FirstOrDefaultAsync(predicate);
 
-    public async Task<PagedResult<T>> GetPagedAsync(Expression<Func<T, bool>>? filter = null, int pageNumber = 1, int pageSize = 10)
+    public async Task<PagedResponse<T>> GetPagedAsync(Expression<Func<T, bool>>? filter = null, int pageNumber = 1, int pageSize = 10)
     {
         IQueryable<T> query = _readSet.AsNoTracking();
         if (filter != null) query = query.Where(filter);
@@ -49,7 +50,7 @@ public class DatabaseGenericRepository<T>(
         var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
         var totalItems = await query.CountAsync();
 
-        return new PagedResult<T>(items, totalItems, pageNumber, pageSize);
+        return new PagedResponse<T>(items, totalItems, pageNumber, pageSize);
     }
 
     public async Task AddAsync(T entity) => await _writeSet.AddAsync(entity);

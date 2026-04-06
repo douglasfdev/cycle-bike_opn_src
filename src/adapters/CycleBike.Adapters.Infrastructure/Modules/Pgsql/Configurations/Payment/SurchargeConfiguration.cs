@@ -4,10 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Payment;
 
-public class SurchargeConfiguration : IEntityTypeConfiguration<Surcharge>
+public class SurchargeConfiguration : AggregateRootConfiguration<Surcharge>
 {
-    public void Configure(EntityTypeBuilder<Surcharge> builder)
+    public override void Configure(EntityTypeBuilder<Surcharge> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("surcharges");
+        
+        builder
+            .Property(x => x.Fee)
+            .IsRequired();
     }
 }

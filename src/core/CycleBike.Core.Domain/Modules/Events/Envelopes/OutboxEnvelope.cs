@@ -1,3 +1,5 @@
+using CycleBike.Core.Common.Interfaces;
+using CycleBike.Core.Common.MessageBroker;
 using CycleBike.Core.Domain.Interfaces;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -14,5 +16,8 @@ public class OutboxEnvelope(
    ) : BaseEntityBson(sent, attempts, messageType, status, sentAt, lastAttempt), IOutboxEnvelope
 {
     [BsonElement("data")]
-    public byte[]? Data { get; } = data;
+    public byte[]? Data { get; init; } = data;
+
+    [BsonIgnore]
+    public RoutingMetadata? RoutingMetadata { get; set; }
 }

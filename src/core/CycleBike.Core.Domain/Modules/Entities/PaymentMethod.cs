@@ -5,11 +5,10 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 
 public class PaymentMethod : AggregateRoot
 {
-    public Ulid Id { get; set; }
     public Ulid ProfileId { get; set; }
     public string PaymentType { get; set; }
-    public Ulid OrderId { get; set; }
-    public Order Order { get; set; }
+    public Ulid? CardId { get; set; }
+    public Card? Card { get; set; }
     
     /// <summary>
     /// Cria uma nova instância de PaymentMethod.
@@ -21,10 +20,21 @@ public class PaymentMethod : AggregateRoot
     /// Cria uma nova instância de PaymentMethod.
     /// </summary>
     /// <param name="paymentType"></param>
-    /// <param name="orderId"></param>
-    public PaymentMethod(PaymentType paymentType, Ulid orderId)
+    /// <param name="cardId"></param>
+    public PaymentMethod(PaymentType paymentType, Ulid cardId)
     {
         PaymentType = paymentType.ToString().ToUpperInvariant();
-        OrderId = orderId;
+        CardId = cardId;
+    }
+
+    /// <summary>
+    /// Cria uma nova instância de PaymentMethod para outros tipos (PIX, Boleto, etc.).
+    /// </summary>
+    /// <param name="profileId">O ID do perfil do cliente.</param>
+    /// <param name="paymentType">O tipo de pagamento.</param>
+    public PaymentMethod(Ulid profileId, PaymentType paymentType)
+    {
+        PaymentType = paymentType.ToString().ToUpperInvariant();
+        ProfileId = profileId;
     }
 }

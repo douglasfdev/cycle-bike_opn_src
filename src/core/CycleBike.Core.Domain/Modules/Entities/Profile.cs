@@ -1,8 +1,18 @@
+using CycleBike.Core.Domain.Aggregates;
+
 namespace CycleBike.Core.Domain.Modules.Entities;
 
-public class Profile
+public class Profile : AggregateRoot
 {
-    public string Id { get => Id.ToString(); set; }
+    public Profile() { }
+    public Profile(Ulid accountId, Customer customer, Contact contact, Address address)
+    {
+        AccountId = accountId;
+        Customer = customer;
+        Contact = contact;
+        Address = address;
+    }
+
     public Ulid AccountId { get; set; }
     public Customer Customer { get; set; }
     public Contact Contact { get; set; }

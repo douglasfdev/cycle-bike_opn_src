@@ -1,2 +1,2 @@
-### Terminar Configuração do Consumidor
-#### Corrigir o acesso ao DB pelo consumidor
+## TODO
+CQRS para contratos de commanding handlers 

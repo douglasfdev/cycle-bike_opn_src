@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using CycleBike.Core.Domain.Interfaces;
 using CycleBike.Core.Domain.Modules.Entities;
@@ -13,7 +14,9 @@ public class RegisterProductEvent<T>(INoSQLRepository<OutboxEnvelope> outboxRepo
         var res = await outboxRepository.GetByIdAsync(message.Id);
         if (res is null) return;
 
-        var product = JsonSerializer.Deserialize<ProductRequest>(res?.Data);
+        if (res.Data is null) return;
+
+        var product = JsonSerializer.Deserialize<ProductRequest>(Encoding.UTF8.GetString(res.Data));
         if (product is null) return;
 
         var newProduct = new Product(product.Name, product.Price, product.Description);
