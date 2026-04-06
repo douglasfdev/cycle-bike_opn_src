@@ -17,5 +17,6 @@ public static class DomainDependencyInjectionLayer
         services.AddScoped<IMessagePublisher, MessagePublisher>();
         services.AddSingleton<IExchangeProvider, ExchangeProvider>();
         services.AddScoped(typeof(IConsumerStrategy<>), typeof(RegisterProductEvent<>));
+        services.AddScoped<IProductService, ProductService>();
     }
 }

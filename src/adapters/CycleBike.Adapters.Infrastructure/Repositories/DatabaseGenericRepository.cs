@@ -14,29 +14,28 @@ public class DatabaseGenericRepository<T>(
     private readonly DbSet<T> _readSet = readContext.Set<T>();
     private readonly DbSet<T> _writeSet = writeContext.Set<T>();
 
+    public IQueryable<T> GetQueryable()
+    {
+        return _readSet.AsNoTracking();
+    }
+
     public async Task<IEnumerable<T>> GetAllAsync() => 
         await _readSet.AsNoTracking().ToListAsync();
 
     public async Task<T?> GetByIdAsync(Ulid id) => 
         await _readSet.FindAsync(id);
 
-    public async Task<PagedResponse<T>> GetPagedAsync(int pageNumber = 1, int pageSize = 10, Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
+    public async Task<PagedResponse<T>> GetPagedAsync(int pageNumber = 1, int pageSize = 10, IQueryable<T>? query = null)
     {
-        IQueryable<T> query = _readSet.AsNoTracking();
-
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
+        query = query ?? _readSet.AsNoTracking();
+        
+        var totalItems = await query.CountAsync();
         var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
 
-        var totalItems = await query.CountAsync();
-
-        return new PagedResponse<T>(items, totalItems, pageNumber, pageSize);;
+        return new PagedResponse<T>(items, totalItems, pageNumber, pageSize);
     }
 
     public async Task<T?> GetByPredicateAsync(Expression<Func<T, bool>> predicate) => 

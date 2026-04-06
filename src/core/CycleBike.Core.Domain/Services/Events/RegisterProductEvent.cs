@@ -16,7 +16,7 @@ public class RegisterProductEvent<T>(INoSQLRepository<OutboxEnvelope> outboxRepo
 
         if (res.Data is null) return;
 
-        var product = JsonSerializer.Deserialize<ProductRequest>(Encoding.UTF8.GetString(res.Data));
+        var product = JsonSerializer.Deserialize<ProductRequest.CreateProduct>(Encoding.UTF8.GetString(res.Data));
         if (product is null) return;
 
         var newProduct = new Product(product.Name, product.Price, product.Description);

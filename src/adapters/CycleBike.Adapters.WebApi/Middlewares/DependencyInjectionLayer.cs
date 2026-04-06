@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Cycle.Core.Application;
 using CycleBike.Adapters.GenericHttpClient;
 using CycleBike.Adapters.Infrastructure;
 using CycleBike.Adapters.SocketAdapter;
@@ -29,6 +30,7 @@ public static class DependencyInjectionLayer
             };
         });
         services.AddDomain();
+        services.AddApplicationLayer();
         services.AddSignalR();
         services.AddHttpClientAdapter();
 
