@@ -19,14 +19,14 @@ public class MessagePublisher(IMessageBus bus, IExchangeProvider exchangeProvide
             routable.RoutingMetadata = metadata;
         }
 
+        var destination = new Uri($"rabbitmq://exchange/{exchangeResource.Exchange}/routing/{routingKeyEnum.ToRoutingKeyString().ToLowerInvariant()}");
         var opts = new DeliveryOptions();
         opts.Headers.Add("x-process", process);
         opts.Headers.Add("x-routing-key", routingKeyEnum.ToRoutingKeyString().ToLowerInvariant());
         opts.Headers.Add("x-exchange", exchangeResource.Exchange);
         opts.Headers.Add("x-correlation-id", metadata.CorrelationId);
 
-        await bus.SendAsync(@event, opts);
-
+        await bus.EndpointFor(destination).SendAsync(@event, opts);
         Console.WriteLine($"[Publisher] Evento enviado para '{exchangeResource.Exchange}' com routing key '{routingKeyEnum}' (Correlation: {metadata.CorrelationId})");
     }
 

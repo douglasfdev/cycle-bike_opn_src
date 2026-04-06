@@ -4,13 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Contacts;
 
-public class AddressConfiguration : IEntityTypeConfiguration<Address>
+public class AddressConfiguration : AggregateRootConfiguration<Address>
 {
-    public void Configure(EntityTypeBuilder<Address> builder)
+    public override void Configure(EntityTypeBuilder<Address> builder)
     {
-        builder.ToTable(nameof(Address));
-        
-        builder.HasKey(x => x.Id);
+        builder.ToTable("addresses");
         
         builder.Property(x => x.City)
             .IsRequired()

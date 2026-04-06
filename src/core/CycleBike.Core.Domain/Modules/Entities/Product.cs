@@ -4,7 +4,6 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 
 public class Product : AggregateRoot
 {
-    public Ulid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string Description { get; set; } = string.Empty;

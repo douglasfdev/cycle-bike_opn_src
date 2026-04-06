@@ -10,7 +10,13 @@ public class DatabaseWriteContext(DbContextOptions<DatabaseWriteContext> options
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-        => configurationBuilder.Properties<string>()
+    {
+        configurationBuilder
+            .Properties<Ulid>()
+            .HaveConversion<Conversions.UlidToStringConverter>();
+        
+        configurationBuilder.Properties<string>()
             .AreUnicode(false)
             .HaveMaxLength(1024);
+    }
 }

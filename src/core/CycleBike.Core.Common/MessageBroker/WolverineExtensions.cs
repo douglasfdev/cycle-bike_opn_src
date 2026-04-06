@@ -33,7 +33,7 @@ public static class WolverineExtensions
     }
 
     /// <summary>
-    /// Configura listeners para todas as filas de um exchange específico.
+    /// Configura listeners para todas as filas de um exchange especï¿½fico.
     /// </summary>
     public static WolverineOptions ListenToExchangeQueues(
         this WolverineOptions opts,
@@ -44,7 +44,7 @@ public static class WolverineExtensions
 
         var exchange = exchanges.FirstOrDefault(e =>
                            e.Process.Equals(exchangeProcess, StringComparison.OrdinalIgnoreCase))
-                       ?? throw new InvalidOperationException($"Exchange '{exchangeProcess}' não encontrado.");
+                       ?? throw new InvalidOperationException($"Exchange '{exchangeProcess}' nï¿½o encontrado.");
 
         for (var i = 0; i < exchange.Queues.Count; i++)
         {
@@ -58,7 +58,7 @@ public static class WolverineExtensions
     }
     
     /// <summary>
-    /// Configura publishers para todos os exchanges usando a convenção de routing.
+    /// Configura publishers para todos os exchanges usando a convenï¿½ï¿½o de routing.
     /// </summary>
     public static WolverineOptions RegisterTopicRouters(this WolverineOptions opts)
     {

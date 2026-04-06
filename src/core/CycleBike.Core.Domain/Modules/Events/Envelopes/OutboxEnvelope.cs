@@ -16,7 +16,7 @@ public class OutboxEnvelope(
    ) : BaseEntityBson(sent, attempts, messageType, status, sentAt, lastAttempt), IOutboxEnvelope
 {
     [BsonElement("data")]
-    public byte[]? Data { get; } = data;
+    public byte[]? Data { get; init; } = data;
 
     [BsonIgnore]
     public RoutingMetadata? RoutingMetadata { get; set; }

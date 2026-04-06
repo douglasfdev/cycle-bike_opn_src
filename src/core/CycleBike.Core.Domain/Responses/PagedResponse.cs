@@ -1,6 +1,6 @@
-namespace CycleBike.Core.Domain.Modules;
+namespace CycleBike.Core.Domain.Responses;
 
-public record PagedResult<T>(
+public record PagedResponse<T>(
     IEnumerable<T> Items,
     int TotalItems,
     int PageNumber,

@@ -7,13 +7,20 @@ public class DatabaseReadContext(DbContextOptions<DatabaseReadContext> options) 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         // modelBuilder.Entity<>().HasNoKey().ToView(nameof());
         // modelBuilder.Entity<>().HasNoKey().ToView(nameof());
         // modelBuilder.Entity<>().HasNoKey().ToView(nameof());
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-        => configurationBuilder.Properties<string>()
+    {
+        configurationBuilder
+            .Properties<Ulid>()
+            .HaveConversion<Conversions.UlidToStringConverter>();
+        
+        configurationBuilder.Properties<string>()
             .AreUnicode(false)
             .HaveMaxLength(1024);
+    }
 }

@@ -4,7 +4,6 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 
 public class Address : AggregateRoot
 {
-    public Ulid Id { get; set; }
     public string Street { get; set; } = string.Empty;
     public string Number { get; set; } = string.Empty;
     public string Complement { get; set; } = string.Empty;
@@ -13,6 +12,7 @@ public class Address : AggregateRoot
     public string State { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
     public string PostalCode { get; set; } = string.Empty;
+    public Ulid ContactId { get; set; }
     
     /// <summary>
     /// Cria uma nova instância de Address.

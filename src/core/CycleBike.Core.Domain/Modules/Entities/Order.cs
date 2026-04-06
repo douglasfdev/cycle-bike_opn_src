@@ -4,12 +4,13 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 
 public class Order : AggregateRoot
 {
-    public Ulid Id { get; set; }
-    public string CustomerId { get; set; }
+    public Ulid CustomerId { get; set; }
     public Customer Customer { get; set; } = new();
-    public string ProductId { get; set; }
+    public Ulid ProductId { get; set; }
     public Product Product { get; set; } = new();
     public string Status { get; set; }
+    public Ulid? PaymentId { get; set; }
+    public Payment Payment { get; set; } = new();
 
     /// <summary>
     /// Cria uma nova instância de Order.
@@ -21,10 +22,16 @@ public class Order : AggregateRoot
     /// </summary>
     /// <param name="customerId">O cliente do pedido.</param>
     /// <param name="productId">O produto do pedido.</param>
-    public Order(string customerId, string productId)
+    public Order(Ulid customerId, Ulid productId)
     {
         CustomerId = customerId;
         ProductId = productId;
         Status = "pending";
+    }
+    
+    public void AddPayment(Ulid paymentId)
+    {
+        PaymentId = paymentId;
+        Status = "Processing";
     }
 }

@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CycleBike.Adapters.Infrastructure.Repositories;
 
-public class DatabaseWriteRepository<T>(DatabaseWriteContext _context, DbSet<T> _dbSet) : IDatabaseWriteRepository<T> where T : class
+public class DatabaseWriteRepository<T>(DatabaseWriteContext _context) : IDatabaseWriteRepository<T> where T : class
 {
+    private readonly DbSet<T> _dbSet = _context.Set<T>();
+
     public async Task<int> CommitAsync()
     {
         try

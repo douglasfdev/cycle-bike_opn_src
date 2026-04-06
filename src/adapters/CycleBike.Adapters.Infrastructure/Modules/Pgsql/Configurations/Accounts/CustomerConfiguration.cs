@@ -4,13 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Accounts;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public class CustomerConfiguration : AggregateRootConfiguration<Customer>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    public override void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.ToTable(nameof(Customer));
-
-        builder.HasKey(x => x.Id);
+        builder.ToTable("customers");
 
         builder.Property(x => x.Name)
             .IsRequired()

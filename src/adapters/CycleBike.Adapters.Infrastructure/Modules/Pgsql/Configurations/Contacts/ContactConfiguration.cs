@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Contacts;
 
-public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+public class ContactConfiguration : AggregateRootConfiguration<Contact>
 {
-    public void Configure(EntityTypeBuilder<Contact> builder)
+    public override void Configure(EntityTypeBuilder<Contact> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("contacts");
+
+        builder.Property(x => x.Email)
+            .IsRequired();
+
+        builder.HasOne(x => x.Phone)
+            .WithOne()
+            .HasForeignKey<Phone>(p => p.ContactId)
+            .IsRequired();
+        
+        builder.HasOne(x => x.Address)
+            .WithOne()
+            .HasForeignKey<Address>(a => a.ContactId)
+            .IsRequired();
     }
 }

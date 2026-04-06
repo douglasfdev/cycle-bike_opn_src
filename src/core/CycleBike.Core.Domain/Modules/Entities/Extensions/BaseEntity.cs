@@ -3,9 +3,9 @@ namespace CycleBike.Core.Domain.Modules.Entities.Extensions;
 public class BaseEntity : IBaseEntity, IEquatable<Ulid>, IEquatable<BaseEntity>
 {
     public Ulid Id { get; private init; } = Ulid.NewUlid();
-    public bool IsDeleted { get; } = false;
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
-    public DateTime? UpdatedAt { get; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public bool Equals(Ulid other) => Id == other;
 

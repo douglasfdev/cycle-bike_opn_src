@@ -4,13 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Accounts;
 
-public class AccountConfiguration : IEntityTypeConfiguration<Account>
+public class AccountConfiguration : AggregateRootConfiguration<Account>
 {
-    public void Configure(EntityTypeBuilder<Account> builder)
+    public override void Configure(EntityTypeBuilder<Account> builder)
     {
-        builder.ToTable("Accounts");
-        
-        builder.HasKey(x => x.Id);
+        builder.ToTable("accounts");
         
         builder
             .HasOne(x => x.Profile)
