@@ -29,11 +29,12 @@ Utiliza o padrão de Outbox Pattern para envio de mensagens a RabbitMQ e o padr�
 Utiliza o padrão de Workers Consumers para processamento de mensagens do RabbitMQ.
 Utiliza o conceito de aplicação distribuida utilizando o padrão de Microservices.
 
-![img.png](img.png)
+![img.png](docs/hexagonal-arch.png)
 
 ## Testes
 Utiliza xUnit para realizar a piramide de testes
-![img_1.png](img_1.png).
+
+![img.png](docs/pyramid-tests.png)
 
 ## Funcionalidades Esperadas
 - Cadastro de bicicletas
