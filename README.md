@@ -20,8 +20,6 @@ Ela é dedicada para aprendizagem com:
 - Message Broker
 - Microservices
 - Hexagonal Architecture
-- Rich Domain Model
-- Event Sourcing
 
 ## Arquitetura 
 O projeto segue a arquitetura Hexagonal (Ports and Adapters) com Dominios Ricos, CQRS separado em Command e Query, utilizando o padrão de Event Sourcing para persistência de dados.
