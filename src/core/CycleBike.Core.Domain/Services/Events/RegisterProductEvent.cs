@@ -23,5 +23,8 @@ public class RegisterProductEvent<T>(INoSQLRepository<OutboxEnvelope> outboxRepo
         
         await productRepository.AddAsync(newProduct);
         await productRepository.CommitAsync();
+        
+        res.Status = "Registered";
+        await outboxRepository.UpdateAsync(res.Id,res);
     }
 }

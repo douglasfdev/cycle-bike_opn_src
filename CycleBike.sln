@@ -29,13 +29,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.Infrastructure", "src\adapters\CycleBike.Adapters.Infrastructure\CycleBike.Adapters.Infrastructure.csproj", "{06AD951B-993A-4004-9E7D-F5895315ED7D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B754CB3A-D345-455B-BB04-F73ED62B60B2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "src/tests", "{B754CB3A-D345-455B-BB04-F73ED62B60B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "tests\UnitTest\UnitTest.csproj", "{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "src/tests\UnitTest\UnitTest.csproj", "{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegratedTests", "tests\IntegratedTests\IntegratedTests.csproj", "{E091E564-A379-492B-A57A-D5E521564DB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegratedTests", "src/tests\IntegratedTests\IntegratedTests.csproj", "{E091E564-A379-492B-A57A-D5E521564DB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CycleBike.Adapters.OutboxRelay", "src\adapters\CycleBike.Adapters.OutboxRelay\CycleBike.Adapters.OutboxRelay.csproj", "{E8088BD3-8363-46E3-BA44-617553FBB513}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{F199C1AE-F447-4A60-8712-CC08256CDD2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,5 +109,6 @@ Global
 		{3D8A8585-EE0E-42DE-8EC8-FB7CB0DA4123} = {B754CB3A-D345-455B-BB04-F73ED62B60B2}
 		{E091E564-A379-492B-A57A-D5E521564DB3} = {B754CB3A-D345-455B-BB04-F73ED62B60B2}
 		{E8088BD3-8363-46E3-BA44-617553FBB513} = {E2FF495B-3D49-4CFD-83DD-B27A2F33CCC5}
+		{B754CB3A-D345-455B-BB04-F73ED62B60B2} = {6F532B53-397B-4A72-ABFD-4B0A1B0F38CB}
 	EndGlobalSection
 EndGlobal

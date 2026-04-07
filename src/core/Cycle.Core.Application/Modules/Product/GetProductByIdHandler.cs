@@ -5,7 +5,7 @@ using CycleBike.Core.Domain.Interfaces;
 
 namespace Cycle.Core.Application.Modules.Product;
 
-public class GetProductByIdHandler(IProductService service) : QueryHandler<ProductQueries.GetProductById, ApiResult<CycleBike.Core.Domain.Modules.Entities.Product>>
+public class GetProductByIdHandler(IProductService service) : QueryHandler<ProductQueries.GetProductById, CycleBike.Core.Domain.Modules.Entities.Product>
 {
     public override async Task<ApiResult<CycleBike.Core.Domain.Modules.Entities.Product>> HandleAsync(ProductQueries.GetProductById query, CancellationToken cancellationToken)
     {

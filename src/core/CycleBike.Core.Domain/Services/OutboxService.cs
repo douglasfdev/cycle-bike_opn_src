@@ -57,4 +57,9 @@ public class OutboxService(INoSQLRepository<OutboxEnvelope> repository) : IOutbo
             await repository.UpdateAsync(id, envelope);
         }
     }
+
+    public async Task UpdateAsync(OutboxEnvelope envelope)
+    {
+        await repository.UpdateAsync(envelope.Id, envelope);
+    }
 }

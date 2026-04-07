@@ -4,6 +4,7 @@ using CycleBike.Adapters.OutboxRelay.Middlewares;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.MessageBroker;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
+using CycleBike.Core.Domain.Requests.Events;
 using Wolverine.Attributes;
 
 [assembly: WolverineModule]
@@ -15,7 +16,7 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .AddServiceBus(opts =>
     {
-        var transport = opts.ListenToExchangeQueues("ProductRequests", typeof(OutboxEnvelope));
+        var transport = opts.ListenToExchangeQueues(nameof(Process.ProductProcess.ProductRegistration), typeof(OutboxEnvelope));
         Console.WriteLine(transport.DescribeHandlerMatch(typeof(ProductRequestConsumer)));
     })
     .Build();

@@ -6,7 +6,7 @@ using CycleBike.Core.Domain.Responses;
 
 namespace Cycle.Core.Application.Modules.Product;
 
-public class GetAllProductsHandler(IProductService service) : QueryHandler<ProductQueries.GetAllProducts, ApiResult<PagedResponse<CycleBike.Core.Domain.Modules.Entities.Product>>>
+public class GetAllProductsHandler(IProductService service) : QueryHandler<ProductQueries.GetAllProducts, PagedResponse<CycleBike.Core.Domain.Modules.Entities.Product>>
 {
     public override async Task<ApiResult<PagedResponse<CycleBike.Core.Domain.Modules.Entities.Product>>> HandleAsync(ProductQueries.GetAllProducts query, CancellationToken cancellationToken)
     {

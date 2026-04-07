@@ -3,6 +3,6 @@ using CycleBike.Core.Common.MessageBroker;
 
 namespace CycleBike.Core.Domain.Interfaces;
 
-public interface IOutboxEnvelope : IMessageBroker, IRoutableMessage
+public interface IOutboxEnvelope : IRoutableMessage
 {
 }
