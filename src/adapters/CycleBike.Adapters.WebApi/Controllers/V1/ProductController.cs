@@ -15,7 +15,6 @@ namespace CycleBike.Adapters.WebApi.Controllers.V1;
 [ApiVersion("1.0")]
 public class ProductController(
     ICommandHandler<ProductCommands.PublishProduct, object> publishProductHandler,
-    ICommandHandler<ProductCommands.CreateProduct, Product> createProductHandler,
     ICommandHandler<ProductCommands.CreateProduct, Product> createProductCacheHandler,
     IQueryHandler<ProductQueries.GetPendingMessages, List<OutboxEnvelope?>> getPendingMessagesHandler,
     IQueryHandler<ProductQueries.GetPendingMessage, OutboxEnvelope?> getPendingMessageHandler) : ControllerBase

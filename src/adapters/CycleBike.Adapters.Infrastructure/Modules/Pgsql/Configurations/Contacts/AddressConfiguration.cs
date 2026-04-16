@@ -8,6 +8,8 @@ public class AddressConfiguration : AggregateRootConfiguration<Address>
 {
     public override void Configure(EntityTypeBuilder<Address> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("addresses");
         
         builder.Property(x => x.City)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initial_readonly : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "products",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -60,7 +60,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,12 +284,6 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                 {
                     table.PrimaryKey("PK_orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orders_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_orders_customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "customers",
@@ -299,6 +293,12 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                         name: "FK_orders_payments_PaymentId",
                         column: x => x.PaymentId,
                         principalTable: "payments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_orders_products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -378,13 +378,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                 name: "surcharges");
 
             migrationBuilder.DropTable(
-                name: "Product");
-
-            migrationBuilder.DropTable(
                 name: "customers");
 
             migrationBuilder.DropTable(
                 name: "payments");
+
+            migrationBuilder.DropTable(
+                name: "products");
 
             migrationBuilder.DropTable(
                 name: "contacts");

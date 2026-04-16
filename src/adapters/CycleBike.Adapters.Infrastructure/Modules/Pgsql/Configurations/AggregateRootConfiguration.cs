@@ -10,11 +10,7 @@ public abstract class AggregateRootConfiguration<T> : IEntityTypeConfiguration<T
     {
         builder.HasKey(x => x.Id);
         
-        builder.Property(x => x.Id)
-            .HasConversion(
-                id => id.ToGuid(),
-                value => new Ulid(value))
-            .ValueGeneratedOnAdd();
+        builder.Property(x => x.Id);
 
         builder.Property(x => x.IsDeleted).IsRequired();
         builder.Property(x => x.CreatedAt).IsRequired();

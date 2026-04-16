@@ -13,9 +13,9 @@ namespace Cycle.Core.Application.Modules.Product;
 public class CreateProductCacheHandler(
     ICacheService cacheService,
     IOutboxService outboxService)
-    : CommandHandler<ProductCommands.CreateProduct, CycleBike.Core.Domain.Modules.Entities.Product>
+    : CommandHandler<ProductCommands.CreateCachedProduct, CycleBike.Core.Domain.Modules.Entities.Product>
 {
-    public override async Task<ApiResult<CycleBike.Core.Domain.Modules.Entities.Product>> HandleAsync(ProductCommands.CreateProduct command, CancellationToken cancellationToken)
+    public override async Task<ApiResult<CycleBike.Core.Domain.Modules.Entities.Product>> HandleAsync(ProductCommands.CreateCachedProduct command, CancellationToken cancellationToken)
     {
         var getCache = await cacheService.GetOrSetDataAsync(command.Name, async () =>
         {

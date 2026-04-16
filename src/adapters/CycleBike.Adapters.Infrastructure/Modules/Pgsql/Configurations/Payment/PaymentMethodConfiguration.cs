@@ -8,6 +8,8 @@ public class PaymentMethodConfiguration : AggregateRootConfiguration<PaymentMeth
 {
     public override void Configure(EntityTypeBuilder<PaymentMethod> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("payment_methods");
 
         builder

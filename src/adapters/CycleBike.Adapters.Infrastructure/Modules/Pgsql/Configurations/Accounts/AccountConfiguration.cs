@@ -8,6 +8,8 @@ public class AccountConfiguration : AggregateRootConfiguration<Account>
 {
     public override void Configure(EntityTypeBuilder<Account> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("accounts");
         
         builder

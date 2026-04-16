@@ -1,4 +1,5 @@
 using CycleBike.Core.Domain.Modules.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Configurations.Orders;
@@ -7,6 +8,10 @@ public class ProductConfiguration : AggregateRootConfiguration<Product>
 {
     public override void Configure(EntityTypeBuilder<Product> builder)
     {
+        base.Configure(builder);
+        
+        builder.ToTable("products");
+
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(150);

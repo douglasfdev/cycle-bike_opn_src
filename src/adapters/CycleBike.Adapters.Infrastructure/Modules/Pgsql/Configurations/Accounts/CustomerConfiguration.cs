@@ -8,6 +8,8 @@ public class CustomerConfiguration : AggregateRootConfiguration<Customer>
 {
     public override void Configure(EntityTypeBuilder<Customer> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("customers");
 
         builder.Property(x => x.Name)

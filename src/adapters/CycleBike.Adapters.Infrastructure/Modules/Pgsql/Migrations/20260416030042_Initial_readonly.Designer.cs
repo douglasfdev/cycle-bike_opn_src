@@ -11,16 +11,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 {
-    [DbContext(typeof(DatabaseWriteContext))]
-    [Migration("20260406044957_Initial")]
-    partial class Initial
+    [DbContext(typeof(DatabaseReadContext))]
+    [Migration("20260416030042_Initial_readonly")]
+    partial class Initial_readonly
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.1")
+                .HasAnnotation("ProductVersion", "10.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -486,7 +486,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Profile", b =>

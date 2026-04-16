@@ -8,6 +8,8 @@ public class SurchargeConfiguration : AggregateRootConfiguration<Surcharge>
 {
     public override void Configure(EntityTypeBuilder<Surcharge> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("surcharges");
         
         builder

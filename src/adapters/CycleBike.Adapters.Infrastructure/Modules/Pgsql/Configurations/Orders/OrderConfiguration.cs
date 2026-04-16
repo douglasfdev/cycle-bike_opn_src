@@ -8,6 +8,8 @@ public class OrderConfiguration : AggregateRootConfiguration<Order>
 {
     public override void Configure(EntityTypeBuilder<Order> builder)
     {
+        base.Configure(builder);
+        
         builder.ToTable("orders");
 
         builder.HasOne(x => x.Customer)

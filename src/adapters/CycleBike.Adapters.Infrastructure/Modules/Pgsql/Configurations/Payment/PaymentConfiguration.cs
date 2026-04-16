@@ -7,6 +7,8 @@ public class PaymentConfiguration : AggregateRootConfiguration<Core.Domain.Modul
 {
     public override void Configure(EntityTypeBuilder<Core.Domain.Modules.Entities.Payment> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("payments");
         
         builder

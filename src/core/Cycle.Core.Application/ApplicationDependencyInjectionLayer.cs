@@ -19,7 +19,7 @@ public static class ApplicationDependencyInjectionLayer
         services.AddTransient<ICommandHandler<ProductCommands.UpdateProduct, Product>, UpdateProductHandler>();
         services.AddTransient<ICommandHandler<ProductCommands.DeleteProduct, Product>, DeleteProductHandler>();
         services.AddTransient<ICommandHandler<ProductCommands.PublishProduct, object>, PublishProductHandler>();
-        services.AddTransient<ICommandHandler<ProductCommands.CreateProduct, Product>, CreateProductCacheHandler>();
+        services.AddTransient<ICommandHandler<ProductCommands.CreateCachedProduct, Product>, CreateProductCacheHandler>();
 
         #endregion
 
