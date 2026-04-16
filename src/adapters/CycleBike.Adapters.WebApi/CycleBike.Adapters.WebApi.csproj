@@ -35,6 +35,7 @@
       <ProjectReference Include="..\CycleBike.Adapters.Infrastructure\CycleBike.Adapters.Infrastructure.csproj" />
       <ProjectReference Include="..\CycleBike.Adapters.SocketAdapter\CycleBike.Adapters.SocketAdapter.csproj" />
       <ProjectReference Include="..\CycleBike.Adapters.SocketServerAdapter\CycleBike.Adapters.SocketServerAdapter.csproj" />
+      <ProjectReference Include="..\CycleBike.Adapters.GraphQL\CycleBike.Adapters.GraphQL.csproj" />
     </ItemGroup>
 
 </Project>

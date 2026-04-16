@@ -16,18 +16,27 @@ Ela é dedicada para aprendizagem com:
 - Workers Consumers
 - CQRS
 - Event Sourcing
+- GraphQL
 - Outbox Pattern
 - Message Broker
 - Microservices
 - Hexagonal Architecture
 
 ## Arquitetura 
-O projeto segue a arquitetura Hexagonal (Ports and Adapters) com Dominios Ricos, CQRS separado em Command e Query, utilizando o padrão de Event Sourcing para persistência de dados.
-Utiliza o padrão de Outbox Pattern para envio de mensagens a RabbitMQ e o padrão de Message Broker para recebimento de mensagens do RabbitMQ.
-Utiliza o padrão de Workers Consumers para processamento de mensagens do RabbitMQ.
-Utiliza o conceito de aplicação distribuida utilizando o padrão de Microservices.
+O projeto segue a arquitetura Hexagonal (Ports and Adapters).
 
 ![img.png](docs/hexagonal-arch.png)
+
+Com Dominios Ricos, CQRS separado em Command e Query
+
+![img.png](docs/cqrs.png)
+
+- Utiliza o padrão de Event Sourcing para persistência de dados.
+- Utiliza o padrão de Outbox Pattern para envio de mensagens a RabbitMQ e o padrão de Message Broker para recebimento de mensagens do RabbitMQ.
+- Utiliza o padrão de Workers Consumers para processamento de mensagens do RabbitMQ.
+- Utiliza o conceito de aplicação distribuida utilizando o padrão de Microservices.
+
+
 
 ## Testes
 Utiliza xUnit para realizar a piramide de testes
