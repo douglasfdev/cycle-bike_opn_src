@@ -8,6 +8,8 @@ public class ContactConfiguration : AggregateRootConfiguration<Contact>
 {
     public override void Configure(EntityTypeBuilder<Contact> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("contacts");
 
         builder.Property(x => x.Email)

@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
 using Cycle.Core.Application;
 using CycleBike.Adapters.GenericHttpClient;
+using CycleBike.Adapters.GraphQL.Configuration;
 using CycleBike.Adapters.Infrastructure;
 using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Adapters.WebApi.Configuration;
+using CycleBike.Adapters.WebApi.Configuration.Swagger;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Domain;
 
@@ -14,7 +16,7 @@ public static class DependencyInjectionLayer
     public static void AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddCustomApiVersioning();
-        services.AddOpenApi();
+        services.AddSwagger();
         services.AddSocketAdapter(options =>
         {
             var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
@@ -33,7 +35,7 @@ public static class DependencyInjectionLayer
         services.AddApplicationLayer();
         services.AddSignalR();
         services.AddHttpClientAdapter();
-
+        services.AddGraphQLAdapter();
         
         services.AddNoSqlLayer(opt =>
         {

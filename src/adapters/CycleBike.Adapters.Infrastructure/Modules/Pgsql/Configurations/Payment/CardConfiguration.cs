@@ -8,6 +8,8 @@ public class CardConfiguration : AggregateRootConfiguration<Card>
 {
     public override void Configure(EntityTypeBuilder<Card> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("cards");
         
         builder.Property(x => x.Number)

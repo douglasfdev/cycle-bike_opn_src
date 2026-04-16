@@ -8,6 +8,8 @@ public class ProfileConfiguration : AggregateRootConfiguration<Profile>
 {
     public override void Configure(EntityTypeBuilder<Profile> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("profiles");
         
         builder.HasOne(profile => profile.Customer)

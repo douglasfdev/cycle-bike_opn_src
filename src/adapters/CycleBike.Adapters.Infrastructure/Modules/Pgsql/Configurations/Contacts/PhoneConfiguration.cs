@@ -8,6 +8,8 @@ public class PhoneConfiguration : AggregateRootConfiguration<Phone>
 {
     public override void Configure(EntityTypeBuilder<Phone> builder)
     {
+        base.Configure(builder);
+
         builder.ToTable("phones");
 
         builder.Property(x => x.Number)
