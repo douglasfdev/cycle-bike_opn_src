@@ -4,8 +4,16 @@ using CycleBike.Adapters.Infrastructure;
 using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
+using OpenTelemetry.Logs;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.IncludeScopes = true;
+    logging.AddOtlpExporter();
+});
 
 builder.Configuration.InitializeEnvironments();
 builder.Services.AddMiddlewares(builder.Configuration);
@@ -32,6 +40,13 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+
+app.MapGet("/health", async (ILoggerFactory log, HttpContext ctx) =>
+{
+    var logger = log.CreateLogger("HealthCheck");
+    logger.LogInformation("Health check endpoint was called.");
+    await ctx.Response.WriteAsync("OK");
+});
 
 app.MapControllers();
 app.MapHub<NotificationsHub>("/realtime");

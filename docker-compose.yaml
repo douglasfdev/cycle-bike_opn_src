@@ -6,6 +6,8 @@
     image: cycle-bike:1.0.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=cycle-bike-api
     ports:
       - 8080:5161
     networks:
@@ -15,11 +17,35 @@
       - redis
       - rabbitmq
       - psql
+      - otel-collector
     deploy:
       resources:
         limits:
           cpus: '0.5'
           memory: 512M
+          
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    ports:
+      - "18888:18888"
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+      - DOTNET_DASHBOARD_OTLP_ENDPOINT_URL=http://0.0.0.0:18889
+    networks:
+      - cycle-bike
+  
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.91.0
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - cycle-bike
+    depends_on:
+      - aspire-dashboard
   
   mongodb:
     build: 
@@ -33,7 +59,7 @@
       - 27017:27017
     networks:
       - cycle-bike
-        
+
   psql:
     image: postgres:alpine3.23
     restart: always
@@ -83,6 +109,7 @@
         limits:
           cpus: '0.5'
           memory: 512M
+
 
 networks:
   cycle-bike:
