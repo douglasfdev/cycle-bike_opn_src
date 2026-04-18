@@ -4,16 +4,11 @@ using CycleBike.Adapters.Infrastructure;
 using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
-using OpenTelemetry.Logs;
+using CycleBike.Core.Common.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.AddOpenTelemetry(logging =>
-{
-    logging.IncludeFormattedMessage = true;
-    logging.IncludeScopes = true;
-    logging.AddOtlpExporter();
-});
+builder.Logging.AddOpenTelemetryDomainInjection();
 
 builder.Configuration.InitializeEnvironments();
 builder.Services.AddMiddlewares(builder.Configuration);

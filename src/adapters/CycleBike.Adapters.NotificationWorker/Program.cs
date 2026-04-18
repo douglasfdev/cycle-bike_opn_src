@@ -1,23 +1,12 @@
 using CycleBike.Adapters.NotificationWorker;
-using CycleBike.Adapters.SocketAdapter;
+using CycleBike.Adapters.NotificationWorker.Middlewares;
 using CycleBike.Core.Common.Configuration;
+using CycleBike.Core.Common.Logging;
 
 var builder = Host.CreateApplicationBuilder(args);
+builder.Logging.AddOpenTelemetryDomainInjection();
 builder.Configuration.InitializeEnvironments();
-builder.Services.AddSocketAdapter(options =>
-{
-    var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
-    options = options with
-    {
-        HubUrl = signalR.HubUrl,
-        AutomaticReconnect = signalR.AutomaticReconnect,
-        ReconnectDelays = signalR.ReconnectDelays,
-        HandshakeTimeout = signalR.HandshakeTimeout,
-        KeepAliveInterval = signalR.KeepAliveInterval,
-        ServerTimeout = signalR.ServerTimeout,
-        Headers = signalR.Headers
-    };
-});
+builder.Services.AddMiddlewares();
 
 builder.Services.AddHostedService<Worker>();
 
