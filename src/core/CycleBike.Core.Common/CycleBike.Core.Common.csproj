@@ -19,8 +19,10 @@
       <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.2" />
       <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.1" />
       <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.15.0-beta.1" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
       <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
       <PackageReference Include="StackExchange.Redis" Version="2.12.8" />
+      <PackageReference Include="WolverineFx" Version="5.31.1" />
       <PackageReference Include="WolverineFx.Http" Version="5.25.0" />
       <PackageReference Include="WolverineFx.RabbitMQ" Version="5.25.0" />
       <PackageReference Include="WolverineFx.Redis" Version="5.25.0" />

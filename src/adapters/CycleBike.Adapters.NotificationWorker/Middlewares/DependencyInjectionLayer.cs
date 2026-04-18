@@ -1,6 +1,6 @@
 using CycleBike.Adapters.SocketAdapter;
 using CycleBike.Core.Common.Configuration;
-using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 namespace CycleBike.Adapters.NotificationWorker.Middlewares;
@@ -9,7 +9,6 @@ public static class DependencyInjectionLayer
 {
     public static void AddMiddlewares(this IServiceCollection services)
     {
-        var metricHost = EnvironmentVariable.TryGetEnvironment<string>("OpenTelemetryOptions:Host");
         services.AddSocketAdapter(options =>
         {
             var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
@@ -27,12 +26,10 @@ public static class DependencyInjectionLayer
 
         services.AddOpenTelemetry()
             .WithTracing(tracing => tracing
-                .AddAspNetCoreInstrumentation()
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("NotificationWorker"))
+                .AddHttpClientInstrumentation() 
                 .AddEntityFrameworkCoreInstrumentation()
-                .AddOtlpExporter(opt => opt.Endpoint = new Uri(metricHost)))
-            .WithMetrics(metrics => metrics
-                .AddAspNetCoreInstrumentation()
-                .AddRuntimeInstrumentation()
-                .AddOtlpExporter(opt => opt.Endpoint = new Uri(metricHost)));
+                .AddSource(nameof(NotificationWorker))
+                .AddOtlpExporter());
     }
 }

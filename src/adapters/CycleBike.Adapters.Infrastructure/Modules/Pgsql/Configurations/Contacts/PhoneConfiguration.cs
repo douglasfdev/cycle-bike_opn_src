@@ -31,8 +31,9 @@ public class PhoneConfiguration : AggregateRootConfiguration<Phone>
             .HasMaxLength(20);
         
         builder.HasOne(x => x.Contact)
-            .WithOne()
-            .HasForeignKey<Phone>(p => p.ContactId)
+            .WithMany(c => c.Phones)
+            .HasForeignKey(p => p.ContactId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
     }
 }

@@ -5,10 +5,14 @@ using Wolverine.Attributes;
 namespace CycleBike.Adapters.OutboxRelay;
 
 [WolverineHandler]
-public class ProductRequestConsumer(IConsumerStrategy<OutboxEnvelope> strategy)
+public class ProductRequestConsumer(ILogger<ProductRequestConsumer> _logger,IConsumerStrategy<OutboxEnvelope> strategy)
 {
     public async Task Handle(OutboxEnvelope @event)
     {
+        _logger.LogInformation(
+            "[OUTBOX RELAY] Received event: Id={Id}, Type={Type}, OccurredAt={OccurredAt}",
+            @event.Id, @event.MessageType, @event.CreatedAt
+            );
         await strategy.HandleAsync(@event);
     }
 }

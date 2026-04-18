@@ -8,9 +8,9 @@ using CycleBike.Core.Common.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.InitializeEnvironments();
 builder.Logging.AddOpenTelemetryDomainInjection();
 
-builder.Configuration.InitializeEnvironments();
 builder.Services.AddMiddlewares(builder.Configuration);
 builder.Host.AddServiceBus();
 

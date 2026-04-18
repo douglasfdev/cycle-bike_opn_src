@@ -13,12 +13,8 @@ public class ContactConfiguration : AggregateRootConfiguration<Contact>
         builder.ToTable("contacts");
 
         builder.Property(x => x.Email)
-            .IsRequired();
-
-        builder.HasOne(x => x.Phone)
-            .WithOne()
-            .HasForeignKey<Phone>(p => p.ContactId)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(50);
         
         builder.HasOne(x => x.Address)
             .WithOne()
