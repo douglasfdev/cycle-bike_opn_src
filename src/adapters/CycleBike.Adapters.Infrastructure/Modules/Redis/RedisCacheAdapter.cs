@@ -8,7 +8,7 @@ public sealed class RedisCacheAdapter(
     IConnectionMultiplexer connectionMultiplexer,
     JsonSerializerOptions? jsonOptions = null) : ICacheAdapter
 {
-    private readonly IDatabase _cache = connectionMultiplexer.GetDatabase();
+    private readonly IDatabase _cache = connectionMultiplexer.GetDatabase(0);
     private readonly JsonSerializerOptions _jsonOptions = jsonOptions ?? new JsonSerializerOptions
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

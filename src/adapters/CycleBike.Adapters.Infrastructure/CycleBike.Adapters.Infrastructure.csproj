@@ -8,15 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="..\CycleBike.Adapters.WebApi\appsettings.json" Link="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\CycleBike.Adapters.WebApi\appsettings.Development.json" Link="appsettings.Development.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.0.0" />
 
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
