@@ -88,10 +88,13 @@ public static class InfrastructureDependencyInjectionLayer
         
         var options = new JsonSerializerOptions();
         configureJsonOptions?.Invoke(options);
-        
-                
+        var redisOptions = ConfigurationOptions.Parse(redisConnectionString);
+        redisOptions.AbortOnConnectFail = true;
+        redisOptions.ConnectTimeout = 5000;
+        redisOptions.SyncTimeout = 5000;
+
         services.AddSingleton<IConnectionMultiplexer>(sp => 
-            ConnectionMultiplexer.Connect(redisConnectionString));
+            ConnectionMultiplexer.Connect(redisOptions));
 
         services.AddRedisCache();
         services.AddMongoDb(mongoConnectionString);

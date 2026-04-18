@@ -19,13 +19,13 @@ public class LoggingCacheDecorator(
 
     public async Task<bool> SetAsync<T>(string key, T value, TimeSpan? expiration = null, CancellationToken cancellationToken = default)
     {
-        Logger.LogInformation(_stringLocalizer[ResourceMessages.INF00002, key]);
+        Logger.LogInformation(_stringLocalizer[ResourceMessages.INF00003, key]);
         return await Inner.SetAsync(key, value, expiration, cancellationToken);
     }
 
     public async Task<bool> DeleteAsync(string key, CancellationToken cancellationToken = default)
     {
-        Logger.LogInformation(_stringLocalizer[ResourceMessages.INF00003, key]);
+        Logger.LogInformation(_stringLocalizer[ResourceMessages.INF00002, key]);
         return await Inner.DeleteAsync(key, cancellationToken);
     }
 
