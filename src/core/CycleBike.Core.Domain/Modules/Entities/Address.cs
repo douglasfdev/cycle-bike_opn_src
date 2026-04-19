@@ -13,12 +13,20 @@ public class Address : AggregateRoot
     public string Country { get; set; } = string.Empty;
     public string PostalCode { get; set; } = string.Empty;
     public Ulid ContactId { get; set; }
-    
-    /// <summary>
-    /// Cria uma nova instância de Address.
-    /// </summary>
-    public Address() { }
-    
+
+    private Address(string street, string number, string complement, string neighborhood, string city, string state, string country, string postalCode,  string createdBy)
+        : base(createdBy)
+    {
+        Street = street;
+        Number = number;
+        Complement = complement;
+        Neighborhood = neighborhood;
+        City = city;
+        State = state;
+        Country = country;
+        PostalCode = postalCode;
+    }
+
     /// <summary>
     /// Cria uma nova instância de Address.
     /// </summary>
@@ -30,15 +38,16 @@ public class Address : AggregateRoot
     /// <param name="state">O estado do endereço.</param>
     /// <param name="country">O país do endereço.</param>
     /// <param name="postalCode">O CEP do endereço.</param>
-    public Address(string street, string number, string complement, string neighborhood, string city, string state, string country, string postalCode)
-    {
-        Street = street;
-        Number = number;
-        Complement = complement;
-        Neighborhood = neighborhood;
-        City = city;
-        State = state;
-        Country = country;
-        PostalCode = postalCode;
-    }
+    /// <param name="createdBy">O identificador de quem criou</param>
+    public static Address Create(string street, string number, string complement, string neighborhood, string city,
+        string state, string country, string postalCode, string createdBy)
+        => new (street,
+            number,
+            complement,neighborhood,
+            city,
+            state,
+            country,
+            postalCode,
+            createdBy
+        );
 }

@@ -14,7 +14,7 @@ public class CreateProductHandler(
     {
         var cached = await cacheService.GetOrSetDataAsync(command.Name, async () =>
         {
-            var product = new CycleBike.Core.Domain.Modules.Entities.Product(command.Name, command.Price, command.Description);
+            var product = CycleBike.Core.Domain.Modules.Entities.Product.Create(command.Name, command.Price, command.Description, command.CreatedBy);
             await service.CreateAsync(product, cancellationToken);
             return product;
         }, TimeSpan.FromMinutes(10));

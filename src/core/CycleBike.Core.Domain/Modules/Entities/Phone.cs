@@ -13,7 +13,7 @@ public class Phone : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de Phone.
     /// </summary>
-    public Phone() { }
+    public Phone() : base(default!) { }
     
     /// <summary>
     /// Cria uma nova instância de Phone.
@@ -22,13 +22,23 @@ public class Phone : AggregateRoot
     /// <param name="areaCode">O código de área do telefone.</param>
     /// <param name="countryCode">O código do país do telefone.</param>
     /// <param name="type">O tipo do telefone.</param>
-    public Phone(string number, string areaCode, string countryCode, string type)
+    /// <param name="createdBy">O Identificador de quem criou</param>
+    private Phone(string number, string areaCode, string countryCode, string type, string createdBy) : base(createdBy)
     {
         Number = number;
         AreaCode = areaCode;
         CountryCode = countryCode;
         Type = type;
+        CreatedBy = createdBy;
     }
+
+    public static Phone Create(string number, string areaCode, string countryCode, string type, string createdBy)
+        => new(number, areaCode, countryCode, type, createdBy);
     
     public Contact Contact { get; set; }
+
+    public void AddContact(Contact contact)
+    {
+        Contact = contact;
+    }
 }

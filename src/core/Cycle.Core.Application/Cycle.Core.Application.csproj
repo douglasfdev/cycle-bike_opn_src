@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Validations\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\CycleBike.Core.Common\CycleBike.Core.Common.csproj" />
       <ProjectReference Include="..\CycleBike.Core.Domain\CycleBike.Core.Domain.csproj" />
     </ItemGroup>

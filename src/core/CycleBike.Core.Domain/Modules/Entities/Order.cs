@@ -15,19 +15,24 @@ public class Order : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de Order.
     /// </summary>
-    public Order() { }
+    public Order() : base(default!) { }
 
     /// <summary>
     /// Cria uma nova instância de Order com cliente e produto.
     /// </summary>
     /// <param name="customerId">O cliente do pedido.</param>
     /// <param name="productId">O produto do pedido.</param>
-    public Order(Ulid customerId, Ulid productId)
+    /// <param name="createdBy">O Identificador de quem criou</param>
+    private Order(Ulid customerId, Ulid productId, string createdBy) : base(createdBy)
     {
         CustomerId = customerId;
         ProductId = productId;
         Status = "pending";
+        CreatedBy = createdBy;
     }
+
+    public static Order Create(Ulid customerId, Ulid productId, string createdBy)
+        => new(customerId, productId, createdBy);
     
     public void AddPayment(Ulid paymentId)
     {

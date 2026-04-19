@@ -6,10 +6,12 @@ using Cycle.Core.Application.Schemas.Queries;
 using CycleBike.Core.Domain.Modules.Entities;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using CycleBike.Core.Domain.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CycleBike.Adapters.WebApi.Controllers.V1;
 
+[Authorize]
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiVersion("1.0")]
@@ -30,7 +32,8 @@ public class ProductController(
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductRequest.CreateProduct request)
     {
-        var command = new ProductCommands.CreateProduct(request.Name, request.Price, request.Description);
+        var userId = User.FindFirst("sub")?.Value ?? "system";
+        var command = new ProductCommands.CreateProduct(request.Name, request.Price, request.Description, userId);
         var result = await createProductCacheHandler.HandleAsync(command, CancellationToken.None);
         return StatusCode(result.StatusCode, result.Data);
     }

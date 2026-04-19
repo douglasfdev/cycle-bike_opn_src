@@ -30,16 +30,19 @@ public class RegisterProductEvent<T>(ILogger<RegisterProductEvent<T>> _logger, I
         var product = JsonSerializer.Deserialize<ProductRequest.CreateProduct>(Encoding.UTF8.GetString(res.Data));
         if (product is null) return;
 
-        var newProduct = new Product(product.Name, product.Price, product.Description);
+        if (!string.IsNullOrEmpty(product.CreatedBy))
+        {
+            var newProduct = Product.Create(product.Name, product.Price, product.Description, product.CreatedBy);
+            await productRepository.AddAsync(newProduct);
+            await productRepository.CommitAsync();
+            res.Status = "Registered";
+            res.SentAt = DateTime.UtcNow;
+            await outboxRepository.UpdateAsync(res.Id,res);
+            
+            _logger.LogInformation("Product registered, [OUTBOX RELAY] Received event: Id={Id}, Type={Type}, OccurredAt={OccurredAt}",
+                message.Id, message.MessageType, message.CreatedAt);
+        }
         
-        await productRepository.AddAsync(newProduct);
-        await productRepository.CommitAsync();
-        
-        res.Status = "Registered";
-        res.SentAt = DateTime.UtcNow;
-        await outboxRepository.UpdateAsync(res.Id,res);
-        
-        _logger.LogInformation("Product registered, [OUTBOX RELAY] Received event: Id={Id}, Type={Type}, OccurredAt={OccurredAt}",
-            message.Id, message.MessageType, message.CreatedAt);
+        _logger.LogWarning("Not registered");
     }
 }

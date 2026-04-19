@@ -19,7 +19,7 @@ public class Payment : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de Payment.
     /// </summary>
-    public Payment() { }
+    public Payment() : base(default!) { }
 
     
     /// <summary>
@@ -29,15 +29,20 @@ public class Payment : AggregateRoot
     /// <param name="paymentMethodId"></param>
     /// <param name="money"></param>
     /// <param name="paymentMethod"></param>
-    public Payment(Ulid orderId, Ulid paymentMethodId, Money money, PaymentMethod paymentMethod)
+    /// <param name="createdBy">O Identificador de quem criou</param>
+    private Payment(Ulid orderId, Ulid paymentMethodId, Money money, PaymentMethod paymentMethod, string createdBy) : base(createdBy)
     {
         OrderId = orderId;
         PaymentMethodId = paymentMethodId;
         PaymentMethod = paymentMethod;
         Amount = money.Amount;
         Currency = money.Currency;
+        CreatedBy = createdBy;
         CreatedAt = DateTime.UtcNow;
     }
+
+    public static Payment Create(Ulid orderId, Ulid paymentMethodId, Money money, PaymentMethod paymentMethod, string createdBy)
+        => new(orderId, paymentMethodId, money, paymentMethod, createdBy);
     
     public void SetPaid(string transactionId, string? details = null)
     {

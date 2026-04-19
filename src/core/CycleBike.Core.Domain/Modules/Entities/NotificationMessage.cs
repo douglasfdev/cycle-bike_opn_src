@@ -8,9 +8,21 @@ namespace CycleBike.Core.Domain.Modules.Entities;
 /// <param name="ok"></param>
 /// <param name="source"></param>
 /// <param name="message"></param>
-public class NotificationMessage(bool ok, string? source, string? message) : AggregateRoot
+public class NotificationMessage : AggregateRoot
 {
-    public bool Ok { get; set; } = ok;
-    public string? Source { get; set; } = source;
-    public string? Message { get; set; } = message;
+    public bool Ok { get; set; }
+    public string? Source { get; set; }
+    public string? Message { get; set; }
+
+    public NotificationMessage() : base(default!) {}
+
+    private NotificationMessage(bool ok, string? source, string? message, string createdBy) : base(createdBy)
+    {
+        Ok = ok;
+        Source = source;
+        Message = message;
+    }
+
+    public static NotificationMessage Create(bool ok, string? source, string? message, string createdBy)
+        => new(ok, source, message, createdBy);
 };

@@ -11,7 +11,7 @@ public class Product : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de Product.
     /// </summary>
-    public Product() { }
+    public Product() : base(default!){ }
 
     /// <summary>
     /// Cria uma nova instância de Product com nome preço e descrição.
@@ -19,10 +19,15 @@ public class Product : AggregateRoot
     /// <param name="name">O nome do produto.</param>
     /// <param name="price">O preço do produto.</param>
     /// <param name="description">A descrição do produto.</param>
-    public Product(string name, decimal price, string description)
+    ///  <param name="createdBy">O Identificador de quem criou</param>
+    private Product(string name, decimal price, string description, string createdBy): base(createdBy)
     {
         Name = name;
         Price = price;
         Description = description;
+        CreatedBy = createdBy;
     }
+
+    public static Product Create(string name, decimal price, string description, string createdBy)
+        => new(name, price, description, createdBy);
 }

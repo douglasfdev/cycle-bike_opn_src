@@ -14,9 +14,8 @@ public class Customer : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de Customer.
     /// </summary>
-    public Customer() { }
-    
-    
+    public Customer(): base(default!) { }
+
     /// <summary>
     /// Cria uma nova instância de Customer.
     /// </summary>
@@ -24,11 +23,16 @@ public class Customer : AggregateRoot
     /// <param name="email">O email do cliente.</param>
     /// <param name="document">O documento do cliente.</param>
     /// <param name="documentType">O tipo do documento do cliente.</param>
-    public Customer(string name, string email, string document, DocumentType documentType)
+    /// <param name="createdBy">O Identificador de quem criou</param>
+    private Customer(string name, string email, string document, DocumentType documentType, string createdBy) : base(createdBy)
     {
         Name = name;
         Email = email;
         Document = document;
+        CreatedBy = createdBy;
         DocumentType = documentType.ToString().ToUpperInvariant();
     }
+    
+    public static Customer Create(string name, string email, string document, DocumentType documentType, string createdBy)
+        => new(name, email, document, documentType, createdBy);
 }

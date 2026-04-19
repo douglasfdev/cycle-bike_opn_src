@@ -13,7 +13,7 @@ public class PaymentMethod : AggregateRoot
     /// <summary>
     /// Cria uma nova instância de PaymentMethod.
     /// </summary>
-    public PaymentMethod() { }
+    public PaymentMethod() : base(default!){ }
     
     
     /// <summary>
@@ -21,20 +21,14 @@ public class PaymentMethod : AggregateRoot
     /// </summary>
     /// <param name="paymentType"></param>
     /// <param name="cardId"></param>
-    public PaymentMethod(PaymentType paymentType, Ulid cardId)
+    /// <param name="createdBy">O Identificador de quem criou</param>
+    private PaymentMethod(PaymentType paymentType, Ulid cardId, string createdBy) : base(createdBy)
     {
         PaymentType = paymentType.ToString().ToUpperInvariant();
         CardId = cardId;
+        CreatedBy = createdBy;
     }
 
-    /// <summary>
-    /// Cria uma nova instância de PaymentMethod para outros tipos (PIX, Boleto, etc.).
-    /// </summary>
-    /// <param name="profileId">O ID do perfil do cliente.</param>
-    /// <param name="paymentType">O tipo de pagamento.</param>
-    public PaymentMethod(Ulid profileId, PaymentType paymentType)
-    {
-        PaymentType = paymentType.ToString().ToUpperInvariant();
-        ProfileId = profileId;
-    }
+    public static PaymentMethod Create(PaymentType paymentType, Ulid cardId, string createdBy)
+        => new(paymentType, cardId, createdBy);
 }
