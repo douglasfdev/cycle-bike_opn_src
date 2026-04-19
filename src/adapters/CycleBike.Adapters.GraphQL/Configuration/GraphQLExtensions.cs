@@ -17,6 +17,7 @@ public static class GraphQLExtensions
 
         services
             .AddGraphQLServer()
+            .AddAuthorization()
             .AddQueryType(d => d.Name("Query"))
                 .AddTypeExtension<ProductQuery>()
             .AddMutationType(d => d.Name("Mutation"))

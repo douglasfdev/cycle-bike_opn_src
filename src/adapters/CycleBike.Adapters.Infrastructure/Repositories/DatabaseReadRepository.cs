@@ -1,12 +1,13 @@
 using System.Linq.Expressions;
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
+using CycleBike.Core.Domain.Aggregates;
 using CycleBike.Core.Domain.Interfaces;
 using CycleBike.Core.Domain.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace CycleBike.Adapters.Infrastructure.Repositories;
 
-public sealed class DatabaseReadRepository<T>(DatabaseReadContext _context): IDatabaseReadRepository<T> where T : class
+public sealed class DatabaseReadRepository<T>(DatabaseReadContext _context): IDatabaseReadRepository<T> where T : AggregateRoot
 {
     private readonly DbSet<T> _dbSet = _context.Set<T>();
     
@@ -27,10 +28,15 @@ public sealed class DatabaseReadRepository<T>(DatabaseReadContext _context): IDa
 
     public async Task<PagedResponse<T>> GetPagedAsync( int pageNumber = 1, int pageSize = 10, IQueryable<T>? query = null)
     {
-        query = query ?? _dbSet.AsNoTracking();
+        var baseQuery = (query ?? _dbSet).AsNoTracking();
+
+        if (!baseQuery.Expression.ToString().Contains("OrderBy"))
+        {
+            baseQuery = baseQuery.OrderByDescending(x => x.CreatedAt);
+        }
         
-        var totalItems = await query.CountAsync();
-        var items = await query
+        var totalItems = await baseQuery.CountAsync();
+        var items = await baseQuery
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

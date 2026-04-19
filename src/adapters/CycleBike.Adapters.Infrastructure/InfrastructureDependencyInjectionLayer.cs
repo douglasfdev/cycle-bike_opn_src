@@ -49,6 +49,7 @@ public static class InfrastructureDependencyInjectionLayer
     {
         return host.UseWolverine(opts =>
         {
+            configure?.Invoke(opts);
             var connection = new Uri(EnvironmentVariable.TryGetEnvironment<MessageBroker>(nameof(MessageBroker))
                 .ConnectionString!);
 
@@ -75,8 +76,6 @@ public static class InfrastructureDependencyInjectionLayer
             // {
             //     queue.MaximumParallelMessages(10);
             // });
-
-            configure?.Invoke(opts);
         });
     }
 

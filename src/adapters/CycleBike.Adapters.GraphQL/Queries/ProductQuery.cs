@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Cycle.Core.Application.Ports.Handlers;
 using Cycle.Core.Application.Responses;
 using Cycle.Core.Application.Schemas.Queries;
@@ -5,9 +6,12 @@ using CycleBike.Core.Domain.Modules.Entities;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using CycleBike.Core.Domain.Requests;
 using CycleBike.Core.Domain.Responses;
+using HotChocolate.Resolvers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CycleBike.Adapters.GraphQL.Queries;
 
+[Authorize]
 [ExtendObjectType("Query")]
 public class ProductQuery
 {
@@ -22,11 +26,13 @@ public class ProductQuery
 
     public async Task<ApiResult<PagedResponse<Product>>> GetAllProducts(
         [Service] IQueryHandler<ProductQueries.GetAllProducts, PagedResponse<Product>> handler,
+        ClaimsPrincipal claimsPrincipal,
         int page = 1,
         int pageSize = 10,
         ProductRequest.ProductSearchRequest? filters = null,
         CancellationToken cancellationToken = default)
     {
+        var userId = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         filters ??= new ProductRequest.ProductSearchRequest(null, null, null);
         var query = new ProductQueries.GetAllProducts(page, pageSize, filters);
         return await handler.HandleAsync(query, cancellationToken);

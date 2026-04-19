@@ -5,6 +5,7 @@ using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.Logging;
+using Wolverine.Transports.Tcp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +13,19 @@ builder.Configuration.InitializeEnvironments();
 builder.Logging.AddOpenTelemetryDomainInjection();
 
 builder.Services.AddMiddlewares(builder.Configuration);
-builder.Host.AddServiceBus();
+builder.Host.AddServiceBus(x => x.Discovery.DisableConventionalDiscovery());
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -39,13 +45,13 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/health", async (ILoggerFactory log, HttpContext ctx) =>
 {
     var logger = log.CreateLogger("HealthCheck");
-    logger.LogInformation("Health check endpoint was called.");
+    logger.LogInformation("Health check endpoint is OK");
+    logger.LogInformation("Path recebido: {0}", ctx.Request.Path);
     await ctx.Response.WriteAsync("OK");
 });
 
 app.MapControllers();
 app.MapHub<NotificationsHub>("/realtime");
 app.MapGraphQLAdapter();
-app.UseHttpsRedirection();
 
 app.Run();

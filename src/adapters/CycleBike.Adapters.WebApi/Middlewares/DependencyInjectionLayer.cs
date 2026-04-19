@@ -8,6 +8,8 @@
     using CycleBike.Adapters.WebApi.Configuration.Swagger;
     using CycleBike.Core.Common.Configuration;
     using CycleBike.Core.Domain;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
     using OpenTelemetry.Metrics;
     using OpenTelemetry.Trace;
 
@@ -17,8 +19,43 @@
     {
         public static void AddMiddlewares(this IServiceCollection services, IConfiguration configuration)
         {
+            #region Auth
+
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(opts =>
+            {
+                opts.Authority = configuration["Authentication:Authority"];
+                opts.Audience = configuration["Authentication:Audience"];
+                opts.RequireHttpsMetadata = false;
+
+                opts.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = opts.Audience
+                };
+            });
+            services.AddAuthorization();
+
+            #endregion
+
+            #region ApiDocumentation
+
             services.AddCustomApiVersioning();
             services.AddSwagger();
+
+            #endregion
+
+            services.AddDomain();
+
+            #region Adapters
+
             services.AddSocketAdapter(options =>
             {
                 var signalR = EnvironmentVariable.TryGetEnvironment<SignalROptions>(nameof(SignalROptions));
@@ -33,18 +70,20 @@
                     Headers = signalR.Headers
                 };
             });
-            services.AddDomain();
             services.AddApplicationLayer();
             services.AddSignalR();
             services.AddHttpClientAdapter();
             services.AddGraphQLAdapter();
-            
             services.AddNoSqlLayer(opt =>
             {
                 opt.PropertyNameCaseInsensitive = true;
                 opt.NumberHandling = JsonNumberHandling.AllowReadingFromString;
             });
             services.AddInfrastructure(configuration);
+
+            #endregion
+
+            #region Telemetry - Observability
 
             var metricHost = EnvironmentVariable.TryGetEnvironment<string>("OpenTelemetryOptions:Host");
             services.AddOpenTelemetry()
@@ -56,5 +95,7 @@
                     .AddAspNetCoreInstrumentation()
                     .AddRuntimeInstrumentation()
                     .AddOtlpExporter(opt => opt.Endpoint = new Uri(metricHost)));
+
+            #endregion
         }
     }
