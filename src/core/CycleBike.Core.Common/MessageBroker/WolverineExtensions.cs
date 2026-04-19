@@ -1,9 +1,7 @@
 using CycleBike.Core.Common.Configuration;
-using CycleBike.Core.Common.Interfaces;
 using Wolverine;
 using Wolverine.RabbitMQ;
 using Wolverine.RabbitMQ.Internal;
-using RabbitMqExchange = CycleBike.Core.Common.Configuration.RabbitMqExchange;
 
 namespace CycleBike.Core.Common.MessageBroker;
 
