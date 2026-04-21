@@ -1,6 +1,5 @@
 using Asp.Versioning;
 using Cycle.Core.Application.Ports.Handlers;
-using Cycle.Core.Application.Responses;
 using Cycle.Core.Application.Schemas.Commands;
 using Cycle.Core.Application.Schemas.Queries;
 using CycleBike.Core.Domain.Modules.Entities;

@@ -19,7 +19,7 @@ public class CreateProductCacheHandler(
     {
         var getCache = await cacheService.GetOrSetDataAsync(command.Name, async () =>
         {
-            var product = new CycleBike.Core.Domain.Modules.Entities.Product(command.Name, command.Price, command.Description);
+            var product = CycleBike.Core.Domain.Modules.Entities.Product.Create(command.Name, command.Price, command.Description, command.CreatedBy);
             await outboxService.EnqueueAsync(product);
             
             return product;
