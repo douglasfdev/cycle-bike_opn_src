@@ -7,14 +7,20 @@ namespace Cycle.Core.Application.Modules.Product;
 
 public class CreateProductHandler(
     ICacheService cacheService,
-    IProductService service)
+    IProductService service,
+    IUserService userService)
     : CommandHandler<ProductCommands.CreateProduct, CycleBike.Core.Domain.Modules.Entities.Product>
 {
     public override async Task<ApiResult<CycleBike.Core.Domain.Modules.Entities.Product>> HandleAsync(ProductCommands.CreateProduct command, CancellationToken cancellationToken)
     {
+        if (!Guid.TryParse(command.CreatedBy, out var createdBy)) throw new ArgumentException(nameof(command.CreatedBy));
+        byte[] bytes = createdBy.ToByteArray();
+        var ulid = new Ulid(bytes);
+        
+        var user = await userService.FindByIdAsync(ulid);
         var cached = await cacheService.GetOrSetDataAsync(command.Name, async () =>
         {
-            var product = CycleBike.Core.Domain.Modules.Entities.Product.Create(command.Name, command.Price, command.Description, command.CreatedBy);
+            var product = CycleBike.Core.Domain.Modules.Entities.Product.Create(command.Name, command.Price, command.Description, user.Id.ToString());
             await service.CreateAsync(product, cancellationToken);
             return product;
         }, TimeSpan.FromMinutes(10));

@@ -1,7 +1,6 @@
 using CycleBike.Core.Common.Interfaces;
 using CycleBike.Core.Common.MessageBroker.Providers;
 using CycleBike.Core.Domain.Interfaces;
-using CycleBike.Core.Domain.Requests;
 using CycleBike.Core.Domain.Services;
 using CycleBike.Core.Domain.Services.Events;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,5 +17,6 @@ public static class DomainDependencyInjectionLayer
         services.AddSingleton<IExchangeProvider, ExchangeProvider>();
         services.AddScoped(typeof(IConsumerStrategy<>), typeof(RegisterProductEvent<>));
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IUserService, UserService>();
     }
 }

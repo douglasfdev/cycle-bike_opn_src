@@ -10,7 +10,7 @@ public abstract class AggregateRootConfiguration<T> : IEntityTypeConfiguration<T
     {
         builder.HasKey(x => x.Id);
         
-        builder.Property(x => x.Id).HasMaxLength(20);
+        builder.Property(x => x.Id).HasMaxLength(30);
 
         builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(50);
 

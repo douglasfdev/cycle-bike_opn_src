@@ -26,6 +26,7 @@ public class Product : AggregateRoot
         Price = price;
         Description = description;
         CreatedBy = createdBy;
+        UpdatedBy = createdBy;
     }
 
     public static Product Create(string name, decimal price, string description, string createdBy)

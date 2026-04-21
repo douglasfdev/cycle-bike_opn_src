@@ -15,7 +15,7 @@ public class AccessControlConfiguration : AggregateRootConfiguration<AccessContr
         builder
             .Property(x => x.UserId)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(36);
 
         builder
             .Property(x => x.Role)

@@ -3,6 +3,7 @@ using System;
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 {
     [DbContext(typeof(DatabaseReadContext))]
-    partial class DatabaseReadContextModelSnapshot : ModelSnapshot
+    [Migration("20260421204750_update_hax_length_user_id_on_relations")]
+    partial class update_hax_length_user_id_on_relations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,13 +28,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.AccessControl", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 647, DateTimeKind.Utc).AddTicks(1251));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 961, DateTimeKind.Utc).AddTicks(2799));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -61,7 +64,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 647, DateTimeKind.Utc).AddTicks(1642));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 961, DateTimeKind.Utc).AddTicks(3211));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -84,13 +87,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Account", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 616, DateTimeKind.Utc).AddTicks(6613));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 930, DateTimeKind.Utc).AddTicks(2512));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -106,7 +109,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 616, DateTimeKind.Utc).AddTicks(9221));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 930, DateTimeKind.Utc).AddTicks(5155));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -122,8 +125,8 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Address", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -139,7 +142,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("ContactId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -152,7 +155,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 643, DateTimeKind.Utc).AddTicks(9941));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 958, DateTimeKind.Utc).AddTicks(1669));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -198,7 +201,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 644, DateTimeKind.Utc).AddTicks(325));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 958, DateTimeKind.Utc).AddTicks(2076));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -217,8 +220,8 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Card", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("CardToken")
                         .IsRequired()
@@ -229,7 +232,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 661, DateTimeKind.Utc).AddTicks(9351));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 975, DateTimeKind.Utc).AddTicks(1916));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -281,7 +284,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 661, DateTimeKind.Utc).AddTicks(9687));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 975, DateTimeKind.Utc).AddTicks(2274));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -297,13 +300,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Contact", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 644, DateTimeKind.Utc).AddTicks(5796));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 958, DateTimeKind.Utc).AddTicks(8081));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -325,7 +328,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 644, DateTimeKind.Utc).AddTicks(6196));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 958, DateTimeKind.Utc).AddTicks(8459));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -341,13 +344,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Customer", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 623, DateTimeKind.Utc).AddTicks(4081));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 937, DateTimeKind.Utc).AddTicks(7428));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -389,7 +392,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 623, DateTimeKind.Utc).AddTicks(4436));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 937, DateTimeKind.Utc).AddTicks(7926));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -405,13 +408,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Order", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 656, DateTimeKind.Utc).AddTicks(9416));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 971, DateTimeKind.Utc).AddTicks(3485));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -421,7 +424,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -430,11 +433,11 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("PaymentId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -445,7 +448,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 656, DateTimeKind.Utc).AddTicks(9808));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 971, DateTimeKind.Utc).AddTicks(3833));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -470,8 +473,8 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Payment", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(18, 2)
@@ -480,7 +483,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 663, DateTimeKind.Utc).AddTicks(1555));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 976, DateTimeKind.Utc).AddTicks(2448));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -505,7 +508,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("PaymentMethodId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("ProcessedAt")
                         .HasColumnType("timestamp with time zone");
@@ -530,7 +533,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 663, DateTimeKind.Utc).AddTicks(1927));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 976, DateTimeKind.Utc).AddTicks(2776));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -548,17 +551,17 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.PaymentMethod", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("CardId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 664, DateTimeKind.Utc).AddTicks(5904));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 977, DateTimeKind.Utc).AddTicks(6768));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -579,12 +582,12 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("ProfileId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 664, DateTimeKind.Utc).AddTicks(6253));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 977, DateTimeKind.Utc).AddTicks(7127));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -605,8 +608,8 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Phone", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("AreaCode")
                         .IsRequired()
@@ -616,7 +619,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 
                     b.Property<string>("ContactId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("CountryCode")
                         .IsRequired()
@@ -629,7 +632,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 645, DateTimeKind.Utc).AddTicks(6968));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 959, DateTimeKind.Utc).AddTicks(8566));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -659,7 +662,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 645, DateTimeKind.Utc).AddTicks(7317));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 959, DateTimeKind.Utc).AddTicks(8923));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -677,13 +680,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Product", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 658, DateTimeKind.Utc).AddTicks(7848));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 973, DateTimeKind.Utc).AddTicks(4629));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -715,7 +718,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 658, DateTimeKind.Utc).AddTicks(9720));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 973, DateTimeKind.Utc).AddTicks(4971));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -731,17 +734,17 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Profile", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("AccountId")
                         .IsRequired()
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 632, DateTimeKind.Utc).AddTicks(935));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 945, DateTimeKind.Utc).AddTicks(8008));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -757,7 +760,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 632, DateTimeKind.Utc).AddTicks(1309));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 945, DateTimeKind.Utc).AddTicks(8393));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -776,13 +779,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Surcharge", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 666, DateTimeKind.Utc).AddTicks(1865));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 979, DateTimeKind.Utc).AddTicks(1000));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -801,7 +804,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 666, DateTimeKind.Utc).AddTicks(2200));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 979, DateTimeKind.Utc).AddTicks(1319));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -817,13 +820,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.Trial", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 648, DateTimeKind.Utc).AddTicks(4711));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 962, DateTimeKind.Utc).AddTicks(6951));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -856,7 +859,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 648, DateTimeKind.Utc).AddTicks(5072));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 962, DateTimeKind.Utc).AddTicks(7332));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -879,13 +882,13 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
             modelBuilder.Entity("CycleBike.Core.Domain.Modules.Entities.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 640, DateTimeKind.Utc).AddTicks(6609));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 954, DateTimeKind.Utc).AddTicks(8015));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -918,7 +921,7 @@ namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 53, 31, 640, DateTimeKind.Utc).AddTicks(6976));
+                        .HasDefaultValue(new DateTime(2026, 4, 21, 20, 47, 49, 954, DateTimeKind.Utc).AddTicks(8348));
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
