@@ -6,7 +6,6 @@ using CycleBike.Core.Domain.Modules.Entities;
 using CycleBike.Core.Domain.Modules.Events.Envelopes;
 using CycleBike.Core.Domain.Requests;
 using CycleBike.Core.Domain.Responses;
-using HotChocolate.Resolvers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CycleBike.Adapters.GraphQL.Queries;

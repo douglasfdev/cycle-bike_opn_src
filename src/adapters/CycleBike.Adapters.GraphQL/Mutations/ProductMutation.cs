@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Cycle.Core.Application.Ports.Handlers;
 using Cycle.Core.Application.Responses;
 using Cycle.Core.Application.Schemas.Commands;
@@ -10,11 +11,13 @@ namespace CycleBike.Adapters.GraphQL.Mutations;
 public class ProductMutation
 {
     public async Task<ApiResult<Product>> CreateProduct(
+        ClaimsPrincipal claimsPrincipal,
         [Service] ICommandHandler<ProductCommands.CreateProduct, Product> handler,
         ProductRequest.CreateProduct input,
         CancellationToken cancellationToken)
     {
-        var command = new ProductCommands.CreateProduct(input.Name, input.Price, input.Description);
+        var userId = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var command = new ProductCommands.CreateProduct(input.Name, input.Price, input.Description, userId ?? input.CreatedBy ?? string.Empty);
         return await handler.HandleAsync(command, cancellationToken);
     }
 

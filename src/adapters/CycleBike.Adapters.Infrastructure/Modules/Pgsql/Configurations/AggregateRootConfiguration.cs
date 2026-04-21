@@ -10,10 +10,12 @@ public abstract class AggregateRootConfiguration<T> : IEntityTypeConfiguration<T
     {
         builder.HasKey(x => x.Id);
         
-        builder.Property(x => x.Id);
+        builder.Property(x => x.Id).HasMaxLength(20);
 
-        builder.Property(x => x.IsDeleted).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt);
+        builder.Property(x => x.CreatedBy).IsRequired().HasMaxLength(50);
+
+        builder.Property(x => x.IsDeleted).IsRequired().HasDefaultValue(false);
+        builder.Property(x => x.CreatedAt).IsRequired().HasDefaultValue(DateTime.UtcNow);
+        builder.Property(x => x.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
     }
 }

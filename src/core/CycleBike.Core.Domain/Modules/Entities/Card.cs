@@ -12,8 +12,10 @@ public class Card : AggregateRoot
     public string HolderName { get; set; } = string.Empty;
     public string ExpirationDate { get; set; } = string.Empty;
     public string Cvv { get; set; } = string.Empty;
-    
-    private Card(string cardToken, string lastFourDigits, string number, PaymentType type, string holderName, string expirationDate, string cvv, Ulid id, string createdBy): base(createdBy)
+
+    public Card() : base(default!) {}
+
+    private Card(string cardToken, string lastFourDigits, string number, PaymentType type, string holderName, string expirationDate, string cvv, string createdBy): base(createdBy)
     {
         CardToken = cardToken;
         LastFourDigits = lastFourDigits;
@@ -22,6 +24,7 @@ public class Card : AggregateRoot
         HolderName = holderName;
         ExpirationDate = expirationDate;
         Cvv = cvv;
+        CreatedBy = createdBy;
     }
 
     /// <summary>
@@ -34,7 +37,8 @@ public class Card : AggregateRoot
     /// <param name="holderName">O nome do portador do cartão.</param>
     /// <param name="expirationDate">A data de expiração do cartão.</param>
     /// <param name="cvv">O CVV do cartão.</param>
+    /// <param name="createdBy">O identificador de quem criou.</param>
     public static Card Create(string cardToken, string lastFourDigits, string number, PaymentType type, string holderName,
-        string expirationDate, string cvv, Ulid id, string createdBy)
-        => new (cardToken, lastFourDigits, number, type, holderName, expirationDate, cvv, id, createdBy);
+        string expirationDate, string cvv, string createdBy)
+        => new (cardToken, lastFourDigits, number, type, holderName, expirationDate, cvv, createdBy);
 }
