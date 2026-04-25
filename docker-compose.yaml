@@ -1,4 +1,4 @@
-﻿services:
+services:
   cycle-bike:
     build:
       context: .
@@ -48,7 +48,7 @@
       - aspire-dashboard
   
   mongodb:
-    build: 
+    build:
       context: .
       dockerfile: src/adapters/CycleBike.Adapters.Infrastructure/Modules/MongoDB/Dockerfile
     restart: always
@@ -64,9 +64,9 @@
     image: postgres:alpine3.23
     restart: always
     environment:
-        POSTGRES_USER: username
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: cycle-bike
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: cycle-bike
     ports:
       - 5432:5432
     networks:
@@ -81,6 +81,17 @@
       interval: 5s
       timeout: 5s
       retries: 5
+  
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_USER=admin
+      - CLICKHOUSE_PASSWORD=admin
 
   rabbitmq:
     image: rabbitmq:3.9-management-alpine
@@ -95,6 +106,8 @@
         limits:
           cpus: '0.5'
           memory: 512M
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -210,3 +223,5 @@ networks:
 
 volumes:
   redis_insight_data:
+  rabbitmq_data:
+  clickhouse_data:

@@ -25,6 +25,11 @@ public class DatabaseWriteRepository<T>(DatabaseWriteContext _context) : IDataba
         await _dbSet.AddAsync(entity);
     }
 
+    public async Task AddRangeAsync(IEnumerable<T> entities)
+    {
+        await _dbSet.AddRangeAsync();
+    }
+
     public void Update(T entity)
     {
         _dbSet.Update(entity);

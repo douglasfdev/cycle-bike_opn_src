@@ -26,6 +26,10 @@ public class DatabaseGenericRepository<T>(
         await readRepository.GetByPredicateAsync(predicate);
 
     public async Task AddAsync(T entity) => await writeRepository.AddAsync(entity);
+    public async Task AddRangeAsync(IEnumerable<T> entities)
+    {
+        await writeRepository.AddRangeAsync(entities);
+    }
 
     public void Update(T entity) => writeRepository.Update(entity);
 
