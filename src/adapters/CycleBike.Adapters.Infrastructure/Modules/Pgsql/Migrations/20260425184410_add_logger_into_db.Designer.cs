@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CycleBike.Adapters.Infrastructure.Modules.Pgsql.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CycleBike.Adapters.Infrastructure.Modules.Pgsql.Migrations
 {
     [DbContext(typeof(DatabaseReadContext))]
-    partial class DatabaseReadContextModelSnapshot : ModelSnapshot
+    [Migration("20260425184410_add_logger_into_db")]
+    partial class add_logger_into_db
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
