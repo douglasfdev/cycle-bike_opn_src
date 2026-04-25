@@ -16,7 +16,7 @@ public class LoggerProvider : ILoggerProvider
     private readonly HttpClient _httpClient = new();
     private readonly CancellationTokenSource _cts = new();
 
-    public LoggerProvider(IHttpClientFactory _httpClient, LoggerOptions options)
+    public LoggerProvider(LoggerOptions options)
     {
         _options = options;
         _logChannel = Channel.CreateUnbounded<LogEntry>();

@@ -18,17 +18,18 @@ public sealed class DatabaseReadRepository<T>(DatabaseReadContext _context): IDa
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _dbSet.AsNoTracking().ToListAsync();
+        return await _dbSet.AsNoTracking().Where(x => !x.IsDeleted).ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(Ulid id)
     {
-        return await _dbSet.FindAsync(id);
+        var entity = await _dbSet.FindAsync(id);
+        return (bool)entity?.IsDeleted ? null : entity;
     }
 
     public async Task<PagedResponse<T>> GetPagedAsync( int pageNumber = 1, int pageSize = 10, IQueryable<T>? query = null)
     {
-        var baseQuery = (query ?? _dbSet).AsNoTracking();
+        var baseQuery = (query ?? _dbSet).AsNoTracking().Where(x => !x.IsDeleted);
 
         if (!baseQuery.Expression.ToString().Contains("OrderBy"))
         {
@@ -46,6 +47,7 @@ public sealed class DatabaseReadRepository<T>(DatabaseReadContext _context): IDa
 
     public async Task<T?> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
     {
-        return await _dbSet.FirstOrDefaultAsync(predicate);
+        var entity = await _dbSet.FirstOrDefaultAsync(predicate);
+        return (bool)entity?.IsDeleted ? null : entity;
     }
 }

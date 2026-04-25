@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CycleBike.Core.Domain.Services;
 
-public class LogEntryProcessor(ILogger<LogEntryProcessor> _logger, IDatabaseGenericRepository<LogEntry> _repository) : ILogEntryProcessor
+public class LogEntryProcessor(ILogger<LogEntryProcessor> _logger, IDatabaseGenericRepository<LogEntry> _repository, string _applicationName) : ILogEntryProcessor
 {
     public async Task ProcessLogAsync(LogEntry log)
     {
@@ -21,7 +21,7 @@ public class LogEntryProcessor(ILogger<LogEntryProcessor> _logger, IDatabaseGene
     private LogEntry EnrichLog(LogEntry log)
     {
         log.Properties["MachineName"] = Environment.MachineName;
-        log.Properties["ApplicationName"] = "CycleBike";
+        log.Properties["ApplicationName"] = _applicationName;
         log.Properties["Environment"] = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
         
         return log;

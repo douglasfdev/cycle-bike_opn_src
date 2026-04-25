@@ -34,6 +34,7 @@ public class DatabaseGenericRepository<T>(
     public void Update(T entity) => writeRepository.Update(entity);
 
     public void UpdateRange(IEnumerable<T> entities) => writeRepository.UpdateRange(entities);
+    public async Task<bool> DeleteAsync(T entity) => await writeRepository.DeleteAsync(entity);
 
     public async Task<int> CommitAsync() => await writeRepository.CommitAsync();
 }
