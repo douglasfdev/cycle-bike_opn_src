@@ -12,6 +12,7 @@ using CycleBike.Core.Common.MessageBroker;
 using CycleBike.Core.Common.Resources;
 using CycleBike.Core.Domain.Interfaces;
 using JasperFx.Core;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,7 @@ public static class InfrastructureDependencyInjectionLayer
         services.AddScoped(typeof(IDatabaseReadRepository<>), typeof(DatabaseReadRepository<>));
     }
 
-    public static IHostBuilder AddServiceBus(this IHostBuilder host, Action<WolverineOptions>? configure = null)
+    public static IHostBuilder UseServiceBus(this IHostBuilder host, IHostEnvironment env, Action<WolverineOptions>? configure = null)
     {
         return host.UseWolverine(opts =>
         {
@@ -57,6 +58,10 @@ public static class InfrastructureDependencyInjectionLayer
                 .AutoProvision()
                 .DeclareExchanges()
                 .EnableWolverineControlQueues();
+            
+            opts.Policies.DisableConventionalLocalRouting();
+            opts.Policies.UseDurableOutboxOnAllSendingEndpoints();
+            opts.Policies.UseDurableInboxOnAllListeners();
 
             opts.RegisterTopicRouters();
 
@@ -76,6 +81,11 @@ public static class InfrastructureDependencyInjectionLayer
             // {
             //     queue.MaximumParallelMessages(10);
             // });
+
+            if (env.IsDevelopment())
+            {
+                opts.Durability.Mode = DurabilityMode.Solo;
+            }
         });
     }
 

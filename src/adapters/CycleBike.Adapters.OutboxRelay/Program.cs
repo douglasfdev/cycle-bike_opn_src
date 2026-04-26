@@ -1,4 +1,5 @@
 using CycleBike.Adapters.Infrastructure;
+using CycleBike.Adapters.OutboxRelay.Configuration;
 using CycleBike.Adapters.OutboxRelay.Middlewares;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.Logging;
@@ -6,14 +7,16 @@ using CycleBike.Core.Common.MessageBroker;
 using Wolverine.Attributes;
 
 [assembly: WolverineModule]
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureLogging(logging => logging.AddOpenTelemetryDomainInjection())
-    .ConfigureServices((ctx, services) =>
+var host = Host.CreateDefaultBuilder(args);
+host.ConfigureLogging(logging => logging.AddOpenTelemetryDomainInjection());
+host.ConfigureServices((ctx, services) =>
     {
         ctx.Configuration.InitializeEnvironments();
         services.AddMiddlewares(ctx.Configuration);
-    })
-    .AddServiceBus(opts => opts.ListenToExchangeQueues("ProductRegistration"))
-    .Build();
+        var hostEnvironmentAdapter = new HostEnvironmentAdapter(ctx.HostingEnvironment);
+        host.UseServiceBus(hostEnvironmentAdapter, opts => opts.ListenToExchangeQueues("ProductRegistration"));
+    });
 
-await host.RunAsync();
+var app = host.Build();
+
+await app.RunAsync();

@@ -13,13 +13,13 @@ builder.Configuration.InitializeEnvironments();
 builder.Logging.AddOpenTelemetryDomainInjection();
 
 builder.Services.AddMiddlewares(builder.Configuration);
-builder.Host.AddServiceBus(x => x.Discovery.DisableConventionalDiscovery());
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+builder.Host.UseServiceBus(app.Environment, x => x.Discovery.DisableConventionalDiscovery());
 
 // app.UseHttpsRedirection();
 app.UseRouting();
