@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <appSettings>
+        <add key="server.urls" value="http://localhost:8081;https://localhost:7441" />
+        <add key="Grpc:Port" value="8081" />
+        <add key="Logging:LogLevel:Default" value="Information" />
+        <add key="Logging:LogLevel:Microsoft.AspNetCore" value="Warning" />
+    </appSettings>
+</configuration>

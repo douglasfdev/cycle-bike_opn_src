@@ -5,7 +5,6 @@ using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.Logging;
-using Wolverine.Transports.Tcp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +12,13 @@ builder.Configuration.InitializeEnvironments();
 builder.Logging.AddOpenTelemetryDomainInjection();
 
 builder.Services.AddMiddlewares(builder.Configuration);
-builder.Host.AddServiceBus(x => x.Discovery.DisableConventionalDiscovery());
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+builder.Host.UseServiceBus(app.Environment, x => x.Discovery.DisableConventionalDiscovery());
 
 // app.UseHttpsRedirection();
 app.UseRouting();

@@ -8,6 +8,7 @@
     using CycleBike.Adapters.WebApi.Configuration.Swagger;
     using CycleBike.Core.Common.Configuration;
     using CycleBike.Core.Domain;
+    using CycleBike.Core.Domain.Logging;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
     using OpenTelemetry.Metrics;
@@ -95,6 +96,12 @@
                     .AddAspNetCoreInstrumentation()
                     .AddRuntimeInstrumentation()
                     .AddOtlpExporter(opt => opt.Endpoint = new Uri(metricHost)));
+
+            #endregion
+
+            #region Log
+
+            services.AddLoggingInfrastructure(EnvironmentVariable.TryGetEnvironment<string>("ApplicationName"));
 
             #endregion
         }

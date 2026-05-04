@@ -26,10 +26,15 @@ public class DatabaseGenericRepository<T>(
         await readRepository.GetByPredicateAsync(predicate);
 
     public async Task AddAsync(T entity) => await writeRepository.AddAsync(entity);
+    public async Task AddRangeAsync(IEnumerable<T> entities)
+    {
+        await writeRepository.AddRangeAsync(entities);
+    }
 
     public void Update(T entity) => writeRepository.Update(entity);
 
     public void UpdateRange(IEnumerable<T> entities) => writeRepository.UpdateRange(entities);
+    public async Task<bool> DeleteAsync(T entity) => await writeRepository.DeleteAsync(entity);
 
     public async Task<int> CommitAsync() => await writeRepository.CommitAsync();
 }
