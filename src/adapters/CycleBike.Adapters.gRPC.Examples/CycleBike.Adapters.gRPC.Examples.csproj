@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\CycleBike.Adapters.gRPC\CycleBike.Adapters.gRPC.csproj" />
+        <ProjectReference Include="..\CycleBike.Adapters.gRPC\CycleBike.Adapters.gRPC.csproj" />
+    </ItemGroup>
+
+</Project>

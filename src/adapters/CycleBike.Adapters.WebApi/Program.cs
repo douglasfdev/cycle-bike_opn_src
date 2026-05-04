@@ -5,7 +5,6 @@ using CycleBike.Adapters.SocketServerAdapter.RealTime.Hubs;
 using CycleBike.Adapters.WebApi.Middlewares;
 using CycleBike.Core.Common.Configuration;
 using CycleBike.Core.Common.Logging;
-using Wolverine.Transports.Tcp;
 
 var builder = WebApplication.CreateBuilder(args);
 

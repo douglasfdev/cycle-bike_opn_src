@@ -20,7 +20,7 @@ public class Logger(string categoryName, Channel<LogEntry> logChannel, LoggerOpt
 
         try
         {
-            var logEntry = LogEntry.Create(logLevel.ToString(), formatter(state, exception), categoryName, string.Empty, exception?.ToString());
+            var logEntry = LogEntry.Create(logLevel.ToString(), formatter(state, exception), categoryName, string.Empty, string.Empty, exception?.ToString());
 
             logChannel.Writer.TryWrite(logEntry);
         }

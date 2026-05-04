@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "CycleBike.Adapters.gRPC";
+
+package bicycle;
+
+service BicycleService {
+  rpc CreateBicycle (CreateBicycleRequest) returns (BicycleResponse);
+  rpc GetBicycle (GetBicycleRequest) returns (BicycleResponse);
+  rpc ListBicycles (ListBicyclesRequest) returns (ListBicyclesResponse);
+}
+
+message CreateBicycleRequest {
+  string name = 1;
+  double price = 2;
+  string description = 3;
+}
+
+message GetBicycleRequest {
+  string id = 1;
+}
+
+message ListBicyclesRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message BicycleResponse {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  string description = 4;
+  string status = 5;
+  int32 version = 6;
+}
+
+message ListBicyclesResponse {
+  repeated BicycleResponse bicycles = 1;
+  int32 total = 2;
+}
