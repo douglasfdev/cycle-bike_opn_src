@@ -1,10 +1,11 @@
 using Cycle.Core.Application.Ports.Handlers;
 using Cycle.Core.Application.Responses;
+using CycleBike.Adapters.gRPC;
 using CycleBike.Adapters.gRPC.Services;
 using Grpc.Core;
 using Moq;
 
-namespace CycleBike.Adapters.gRPC.Tests.Services;
+namespace UnitTest.adapters.gRPC;
 
 public class BicycleGrpcServiceTests
 {
