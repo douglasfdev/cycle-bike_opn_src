@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\CycleBike.Adapters.gRPC\CycleBike.Adapters.gRPC.csproj" />
         <ProjectReference Include="..\CycleBike.Adapters.gRPC\CycleBike.Adapters.gRPC.csproj" />
     </ItemGroup>
 
